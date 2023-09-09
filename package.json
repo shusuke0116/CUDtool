@@ -1,16 +1,20 @@
 {
-  "name": "nodejs",
+  "name": "node-http-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js example server starter project",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@types/node": "^18.0.6",
-    "node-fetch": "^3.2.6"
-  }
+    "ejs": "",
+    "express": "",
+    "kind-of": "",
+    "minimist": "",
+    "mixin-deep": "",
+    "set-value": "",
+    "sqlite3": ""
+  },
+  "devDependencies": {},
+  "keywords": []
 }

@@ -1,0 +1,52 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layout</title>
+</head>
+<body>
+  <h1><%= data[0].item %></h1>
+  <hr>
+  
+  <div id="que">
+    <div>
+      <p><%= data[0].que %></p>
+    </div>
+    <div>
+      <p>選択肢</p>
+    </div>
+    <div>
+      <p>文章</p>
+    </div>    
+  </div>
+
+  <div>
+    <p><input type="submit" value="評価"></p>
+  </div>
+
+  <% if(e == 1){ %>
+    <div id="eva">
+      <div>
+        <p>別色覚視点</p>
+      </div>
+      <div>
+        <% if(gb == 1){ %>
+          <p><%= data[0].good %></p>
+        <% } else{ %>
+          <p><%= data[0].bad %></p>
+        <% } %>
+      </div>
+      <div>
+        <p><%= data[0].adv %></p>
+      </div>
+    </div>
+  <% } %>
+
+  <div>
+    <p><input type="submit" value="次の項目へ"></p>
+  </div>
+
+
+  
+</body>
+</html>
