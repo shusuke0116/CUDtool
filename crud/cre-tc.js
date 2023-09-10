@@ -2,16 +2,13 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
 let schema = `
-create table text(
-  id integer primary key,
-  item text NOT NULL,
-  que text NOT NULL,
-  sen text NOT NULL,
-  good text NOT NULL,
-  bad text NOT NULL,
-  adv text NOT NULL
-);
-`
+create table tc(
+  t_id integer NOT NULL,
+  c_id integer NOT NULL,
+  gb integer NOT NULL,
+  primary key(t_id,c_id)
+  );
+  `
 
 db.serialize( () => {
 	db.run( schema, (error, row) => {

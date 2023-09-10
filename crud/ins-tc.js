@@ -2,8 +2,8 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
 let sql =
-  `insert into color (name,ccode,pname,pcode) values
-  ("赤","#FF2C01","P","#76742C")
+  `insert into tc (t_id,c_id,gb) values
+  (1,1,0)
   ;`;
 
 

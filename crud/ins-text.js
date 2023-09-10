@@ -2,8 +2,8 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
 let sql =
-  `insert into text (item,que,good,bad,adv) values
-  ("項目１","問題１","良い評価１","悪い評価１","アド１")
+  `insert into text (item,que,sen,good,bad,adv) values
+  ("項目１","問題１","文章１","良い評価１","悪い評価１","アド１")
  
   ;`;
 

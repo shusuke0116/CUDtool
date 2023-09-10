@@ -6,6 +6,7 @@ create table color(
   id integer primary key,
   name text NOT NULL,
   ccode text NOT NULL,
+  pname text NOT NULL,
   pcode text NOT NULL
 );
 `
