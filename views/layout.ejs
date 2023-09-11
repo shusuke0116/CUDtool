@@ -5,25 +5,31 @@
   <title>CUD学習ツール</title>
 </head>
 <body>
-  <h1><%= data[0].item %></h1>
+  <h1><%= textdata[0].item %></h1>
   <hr>
 
   <form action="/answer" method="post" autocomplete="off">
   <div id="que">
     <div>
-      <p><%= data[0].que %></p>
+      <p><%= textdata[0].que %></p>
     </div>
     <div>
       <p>選択肢</p>
-      <p><%= data[0].name %></p>
-    </div>
+      <p><font color="<%= choices[0].ccode %>"><input type="radio" name="choice" value="<%= choices[0].gb %>" checked><%= choices[0].name %></font>
+        <% for (let row of choices){ 
+          if(row.ccode != choices[0].ccode){ %>
+          <font color="<%= row.ccode %>"><input type="radio" name="choice" value="<%= row.gb %>"><%= row.name %></font>
+          <input type="hidden" name="gb" value="<%= row.gb %>">
+          <% } 
+          }%>
+      </p>
     <div>
-      <p><%= data[0].sen %></p>
+      <p><%= textdata[0].sen %></p>
     </div>    
   </div>
   
   <div>
-    <input type="hidden" name="id" value="<%= data[0].t_id %>">
+    <input type="hidden" name="id" value="<%= textdata[0].id %>">
     <p><input type="submit" value="評価"></p>
   </div>
   </form>
@@ -34,14 +40,10 @@
         <p>別色覚視点</p>
       </div>
       <div>
-        <% if(data[0].gb == 1){ %>
-          <p><%= data[0].good %></p>
-        <% } else{ %>
-          <p><%= data[0].bad %></p>
-        <% } %>
+        <p><%= textdata[0].eva %></p>
       </div>
       <div>
-        <p><%= data[0].adv %></p>
+        <p><%= textdata[0].adv %></p>
       </div>
     </div>
   <% } %>

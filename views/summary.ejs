@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CUD学習ツール</title>
+</head>
+<body>
+  <h1><%= data[0].item %></h1>
+  <hr>
+
+  <div id="que">
+    <% for (let row of data){ %>
+      <div>
+        <p><%= row.sen %></p>
+      </div>
+    <% } %>
+  </div>
+
+  <form action="/summary" method="post" autocomplete="off">
+  <div id="cho">
+    <% for (let row of data){ %>
+      <div>
+        <p><%= row.name %></p>
+      </div>
+    <% } %>
+    <p><input type="submit" value="評価"></p>
+  </div>
+  </form>
+
+</body>
+</html>
