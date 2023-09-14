@@ -38,7 +38,7 @@ app.get("/question/:id", (req, res) => {
 
   let e = 0;
   let textdata;
-  let col;
+  let col = new Array(3);
   
   let sql = "select id,item,que,sen" 
     + " from text"
@@ -65,7 +65,7 @@ app.get("/question/:id", (req, res) => {
               res.render('show', {mes:"エラーです"});
             }
             //console.log(choices); 
-            col = choices[0].ccode;
+            col[0] = choices[0].ccode;
             res.render('layout', {textdata:textdata,choices:choices,e:e,col:col});
         })
     })
@@ -77,9 +77,9 @@ app.post("/answer", (req, res) => {
   let e = 1;
   let textdata;
   let gb;
-  let col;
+  let col = new Array(3);
 
-  let qsql = "select gb,ccode"
+  let qsql = "select gb,ccode,pcode,pname"
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
     + " where t_id = "+ req.body.id 
@@ -91,7 +91,9 @@ app.post("/answer", (req, res) => {
               res.render('show', {mes:"エラーです"});
             }
             gb = eva[0].gb;
-            col = eva[0].ccode;
+            col[0] = eva[0].ccode;
+            col[1] = eva[0].pcode;
+            col[2] = eva[0].pname;
         })
     })
 

@@ -12,7 +12,7 @@
 </script>
 <style type="text/css">
 span#sen {
-color:<%= col %>;
+color:<%= col[0] %>;
 }
 </style>
 <body>
@@ -29,7 +29,7 @@ color:<%= col %>;
       <p>
         <% let c; 
           for (let row of choices){ 
-            if(row.ccode == col) c = "checked";
+            if(row.ccode == col[0]) c = "checked";
             else c = "";
         %>
           <font color="<%= row.ccode %>"><input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %></font>
@@ -50,7 +50,8 @@ color:<%= col %>;
   <% if(e == 1){ %>
     <div id="eva">
       <div>
-        <p>別色覚視点</p>
+        <p>別色覚視点（<%= col[2] %>型色覚）</p>
+        <span style="color:<%= col[1] %>"><%= textdata[0].sen %></span>
       </div>
       <div>
         <% if(gb == 0) { %> 
