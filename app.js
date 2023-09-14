@@ -38,6 +38,7 @@ app.get("/question/:id", (req, res) => {
 
   let e = 0;
   let textdata;
+  let col;
   
   let sql = "select id,item,que,sen" 
     + " from text"
@@ -53,7 +54,7 @@ app.get("/question/:id", (req, res) => {
         })
     })
 
-  let sqlb = "select color.name,ccode,pname,pcode,gb" 
+  let sqlb = "select color.id,color.name,ccode" 
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
     + " where t_id = "+ req.params.id 
@@ -63,8 +64,9 @@ app.get("/question/:id", (req, res) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
-            console.log(choices); 
-            res.render('layout', {textdata:textdata,choices:choices,e:e});
+            //console.log(choices); 
+            col = choices[0].ccode;
+            res.render('layout', {textdata:textdata,choices:choices,e:e,col:col});
         })
     })
   
@@ -75,11 +77,25 @@ app.post("/answer", (req, res) => {
   let e = 1;
   let textdata;
   let gb;
-  if (req.body.choice == 0) gb = ",bad";
-  else gb = ",good";
-  
-  let sql = "select id,item,que,sen,adv" 
-    + gb + " as eva"
+  let col;
+
+  let qsql = "select gb,ccode"
+    + " from tc inner join color" 
+    + " on (color.id=tc.c_id)"
+    + " where t_id = "+ req.body.id 
+    + " and c_id = "+ req.body.choice
+    + ";";
+    db.serialize( () => {
+        db.all(qsql, (error, eva) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            gb = eva[0].gb;
+            col = eva[0].ccode;
+        })
+    })
+
+  let sql = "select id,item,que,sen,adv,good,bad"
     + " from text"
     + " where text.id = "+ req.body.id 
     + ";";
@@ -93,7 +109,7 @@ app.post("/answer", (req, res) => {
         })
     })
 
-  let sqlb = "select color.name,ccode,pname,pcode,gb" 
+  let sqlb = "select color.id,color.name,ccode,pname,pcode" 
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
     + " where t_id = "+ req.body.id 
@@ -103,8 +119,7 @@ app.post("/answer", (req, res) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
-            //console.log(choices);  
-            res.render('layout', {textdata:textdata,choices:choices,e:e});
+            res.render('layout', {textdata:textdata,choices:choices,e:e,gb:gb,col:col});
         })
     })
 });

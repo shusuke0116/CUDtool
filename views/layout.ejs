@@ -4,6 +4,17 @@
   <meta charset="utf-8">
   <title>CUD学習ツール</title>
 </head>
+<script>
+  function choiceColor(code) {
+  const sen = document.querySelector("#sen");
+  sen.style.color = code;
+}
+</script>
+<style type="text/css">
+span#sen {
+color:<%= col %>;
+}
+</style>
 <body>
   <h1><%= textdata[0].item %></h1>
   <hr>
@@ -15,16 +26,18 @@
     </div>
     <div>
       <p>選択肢</p>
-      <p><font color="<%= choices[0].ccode %>"><input type="radio" name="choice" value="<%= choices[0].gb %>" checked><%= choices[0].name %></font>
-        <% for (let row of choices){ 
-          if(row.ccode != choices[0].ccode){ %>
-          <font color="<%= row.ccode %>"><input type="radio" name="choice" value="<%= row.gb %>"><%= row.name %></font>
+      <p>
+        <% let c; 
+          for (let row of choices){ 
+            if(row.ccode == col) c = "checked";
+            else c = "";
+        %>
+          <font color="<%= row.ccode %>"><input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %></font>
           <input type="hidden" name="gb" value="<%= row.gb %>">
-          <% } 
-          }%>
+        <% } %>
       </p>
     <div>
-      <p><%= textdata[0].sen %></p>
+      <span id="sen"><%= textdata[0].sen %></span>
     </div>    
   </div>
   
@@ -40,7 +53,11 @@
         <p>別色覚視点</p>
       </div>
       <div>
-        <p><%= textdata[0].eva %></p>
+        <% if(gb == 0) { %> 
+          <p><%= textdata[0].bad %></p>
+        <% }else{ %> 
+          <p><%= textdata[0].good %></p>  
+        <% } %>
       </div>
       <div>
         <p><%= textdata[0].adv %></p>
