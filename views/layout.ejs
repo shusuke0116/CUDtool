@@ -32,7 +32,9 @@ color:<%= col[0] %>;
             if(row.ccode == col[0]) c = "checked";
             else c = "";
         %>
-          <font color="<%= row.ccode %>"><input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %></font>
+          <font color="<%= row.ccode %>">
+            <input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %>
+          </font>
           <input type="hidden" name="gb" value="<%= row.gb %>">
         <% } %>
       </p>
@@ -50,8 +52,10 @@ color:<%= col[0] %>;
   <% if(e == 1){ %>
     <div id="eva">
       <div>
-        <p>別色覚視点（<%= col[2] %>型色覚）</p>
-        <span style="color:<%= col[1] %>"><%= textdata[0].sen %></span>
+        <p>別色覚視点</p>
+        <p>P型：<span style="color:<%= col[1] %>"><%= textdata[0].sen %></span></p>
+        <p>D型：<span style="color:<%= col[2] %>"><%= textdata[0].sen %></span></p>
+        <p>S型：<span style="color:<%= col[3] %>"><%= textdata[0].sen %></span></p>
       </div>
       <div>
         <% if(gb == 0) { %> 
@@ -70,7 +74,5 @@ color:<%= col[0] %>;
     <p><input type="submit" value="次の項目へ"></p>
   </div>
 
-
-  
 </body>
 </html>

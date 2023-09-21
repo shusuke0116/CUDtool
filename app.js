@@ -77,32 +77,36 @@ app.post("/answer", (req, res) => {
   let e = 1;
   let textdata;
   let gb;
-  let col = new Array(3);
+  let col = new Array(4);
 
-  let qsql = "select gb,ccode,pcode,pname"
+  // 選択されていた色の評価とカラーコード
+  let sql = "select gb,ccode,pcode,dcode,scode"
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
     + " where t_id = "+ req.body.id 
     + " and c_id = "+ req.body.choice
     + ";";
     db.serialize( () => {
-        db.all(qsql, (error, eva) => {
+        db.all(sql, (error, eva) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
+            
             gb = eva[0].gb;
             col[0] = eva[0].ccode;
             col[1] = eva[0].pcode;
-            col[2] = eva[0].pname;
+            col[2] = eva[0].dcode;
+            col[3] = eva[0].scode;
         })
     })
 
-  let sql = "select id,item,que,sen,adv,good,bad"
+  // テキスト
+  let sqlb = "select *"
     + " from text"
     + " where text.id = "+ req.body.id 
     + ";";
     db.serialize( () => {
-        db.all(sql, (error, data) => {
+        db.all(sqlb, (error, data) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
@@ -111,13 +115,14 @@ app.post("/answer", (req, res) => {
         })
     })
 
-  let sqlb = "select color.id,color.name,ccode,pname,pcode" 
+  //　選択肢
+  let sqlc = "select color.id,color.name,ccode" 
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
     + " where t_id = "+ req.body.id 
     + ";";
     db.serialize( () => {
-        db.all(sqlb, (error, choices) => {
+        db.all(sqlc, (error, choices) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
@@ -150,7 +155,6 @@ app.get("/summary", (req, res) => {
     })
   
 });
-
 
 
 app.use(function(req, res, next) {

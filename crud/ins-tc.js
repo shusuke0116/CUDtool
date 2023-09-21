@@ -3,8 +3,9 @@ const db = new sqlite3.Database('test.db');
 
 let sql =
   `insert into tc (t_id,c_id,gb) values` 
-  /* + `(1,1,0)` */
-  + `(1,2,1)` 
+  + `(1,1,0),` 
+  + `(1,2,1),`
+  + `(1,3,0)` 
   + `;`;
 
 

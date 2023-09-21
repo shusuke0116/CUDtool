@@ -3,7 +3,7 @@ const db = new sqlite3.Database('test.db');
 
 let sql =
   `insert into text (item,que,sen,good,bad,adv) values
-  ("項目１","問題１","文章１","良い評価１","悪い評価１","アド１")
+  ("項目名","問題文","変化させる文章","良い評価","悪い評価","アドバイス")
  
   ;`;
 
