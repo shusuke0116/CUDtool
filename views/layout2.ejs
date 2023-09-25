@@ -5,21 +5,22 @@
   <title>CUD学習ツール</title>
 </head>
 <script>
-  function choiceColor(code) {
+  function choiceColor(font) {
   const sen = document.querySelector("#sen");
-  sen.style.color = "#" + code;
+  sen.style.fontFamily = font;
 }
 </script>
 <style type="text/css">
 span#sen {
-color:<%= "#" + col[0] %>;
+color:<%= '#' + col %>;
+font-family:<%= fon %>;
 }
 </style>
 <body>
   <h1><%= textdata[0].item %></h1>
   <hr>
 
-  <form action="/question/1/answer" method="post">
+  <form action="/question/2/answer" method="post">
   <div id="que">
     <div>
       <p><%= textdata[0].que %></p>
@@ -29,13 +30,12 @@ color:<%= "#" + col[0] %>;
       <p>
         <% let c; 
           for (let row of choices){ 
-            if(row.ccode == col[0]) c = "checked";
+            if(row.face == fon) c = "checked";
             else c = "";
         %>
-          <font color="<%= '#' + row.ccode %>">
-            <input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %>
-          </font>
-          <input type="hidden" name="gb" value="<%= row.gb %>">
+        <font face="<%= row.face %>">
+          <input type="radio" name="choice" id="<%= row.face %>" value="<%= row.face %>" onclick="choiceColor(this.id)" <%= c %> ><%= row.name %>
+        </font>
         <% } %>
       </p>
     <div>
@@ -45,6 +45,7 @@ color:<%= "#" + col[0] %>;
   
   <div>
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
+    <input type="hidden" name="col" value="<%= col %>">
     <p><input type="submit" value="評価"></p>
   </div>
   </form>
@@ -52,10 +53,10 @@ color:<%= "#" + col[0] %>;
   <% if(e == 1){ %>
     <div id="eva">
       <div>
-        <p>別色覚視点</p>
-        <p>P型：<span style="color:<%= '#' + col[1] %>"><%= textdata[0].sen %></span></p>
-        <p>D型：<span style="color:<%= '#' + col[2] %>"><%= textdata[0].sen %></span></p>
-        <p>S型：<span style="color:<%= '#' + col[3] %>"><%= textdata[0].sen %></span></p>
+        <p>別視フォントとの比較</p>
+        <% for (let row of choices){ %>
+          <p><%= row.name %>:<font size=6 color="<%= '#' + col %>" face="<%= row.face %>"><%= textdata[0].sen %></font></p>
+        <% } %>
       </div>
       <div>
         <% if(gb == 0) { %> 
@@ -72,7 +73,7 @@ color:<%= "#" + col[0] %>;
 
   <div>
     <input type="hidden" name="ch" value="<%= col[0] %>">
-    <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+    <p><input type="submit" value="次の項目へ"></p>
   </div>
 
 </body>

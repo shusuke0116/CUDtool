@@ -5,21 +5,20 @@
   <title>CUD学習ツール</title>
 </head>
 <script>
-  function choiceColor(code) {
+  function choiceColor() {
   const sen = document.querySelector("#sen");
-  sen.style.color = "#" + code;
 }
 </script>
 <style type="text/css">
 span#sen {
-color:<%= "#" + col[0] %>;
+color:<%= '#' + col %>;
 }
 </style>
 <body>
   <h1><%= textdata[0].item %></h1>
   <hr>
 
-  <form action="/question/1/answer" method="post">
+  <form action="/answer" method="post">
   <div id="que">
     <div>
       <p><%= textdata[0].que %></p>
@@ -32,14 +31,11 @@ color:<%= "#" + col[0] %>;
             if(row.ccode == col[0]) c = "checked";
             else c = "";
         %>
-          <font color="<%= '#' + row.ccode %>">
-            <input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %>
-          </font>
-          <input type="hidden" name="gb" value="<%= row.gb %>">
+          
         <% } %>
       </p>
     <div>
-      <font size=6><span id="sen"><%= textdata[0].sen %></span></font>
+      <span id="sen"><%= textdata[0].sen %></span>
     </div>    
   </div>
   
@@ -70,10 +66,12 @@ color:<%= "#" + col[0] %>;
     </div>
   <% } %>
 
+  <form action="<%= 'question/' + (parseInt(textdata[0].id)+1) %>" method="post">
   <div>
     <input type="hidden" name="ch" value="<%= col[0] %>">
-    <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+    <p><input type="submit" value="次の項目へ"></p>
   </div>
+  </form>
 
 </body>
 </html>

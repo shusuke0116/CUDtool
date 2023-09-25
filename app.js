@@ -34,7 +34,7 @@ app.get("/question", (req, res) => {
   
 });
 
-app.get("/question/:id", (req, res) => {
+app.get("/question/1", (req, res) => {
 
   let e = 0;
   let textdata;
@@ -42,7 +42,7 @@ app.get("/question/:id", (req, res) => {
   
   let sql = "select id,item,que,sen" 
     + " from text"
-    + " where text.id = "+ req.params.id 
+    + " where text.id = "+ "1"
     + ";";
     db.serialize( () => {
         db.all(sql, (error, data) => {
@@ -57,7 +57,7 @@ app.get("/question/:id", (req, res) => {
   let sqlb = "select color.id,color.name,ccode" 
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
-    + " where t_id = "+ req.params.id 
+    + " where t_id = "+ "1"
     + ";";
     db.serialize( () => {
         db.all(sqlb, (error, choices) => {
@@ -72,7 +72,7 @@ app.get("/question/:id", (req, res) => {
   
 });
 
-app.post("/answer", (req, res) => {
+app.post("/question/1/answer", (req, res) => {
 
   let e = 1;
   let textdata;
@@ -83,7 +83,7 @@ app.post("/answer", (req, res) => {
   let sql = "select gb,ccode,pcode,dcode,scode"
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
-    + " where t_id = "+ req.body.id 
+    + " where t_id = "+ "1" 
     + " and c_id = "+ req.body.choice
     + ";";
     db.serialize( () => {
@@ -103,7 +103,7 @@ app.post("/answer", (req, res) => {
   // テキスト
   let sqlb = "select *"
     + " from text"
-    + " where text.id = "+ req.body.id 
+    + " where text.id = "+ "1"
     + ";";
     db.serialize( () => {
         db.all(sqlb, (error, data) => {
@@ -127,6 +127,85 @@ app.post("/answer", (req, res) => {
               res.render('show', {mes:"エラーです"});
             }
             res.render('layout', {textdata:textdata,choices:choices,e:e,gb:gb,col:col});
+        })
+    })
+});
+
+app.get("/question/2/:col", (req, res) => {
+
+  let e = 0;
+  let textdata;
+  let col = req.params.col
+  let fon;
+
+  // テキスト
+  let sqlb = "select *"
+    + " from text"
+    + " where text.id = " + "2"
+    + ";";
+    db.serialize( () => {
+        db.all(sqlb, (error, data) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            //console.log(data);    // ③
+            textdata = data;
+        })
+    })
+
+  //　選択肢
+  let sqlc = "select *" 
+    + " from font" 
+    + ";";
+    db.serialize( () => {
+        db.all(sqlc, (error, choices) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            //console.log(choices);
+            fon = choices[0].face;
+            res.render('layout2', {textdata:textdata,choices:choices,e:e,col:col,fon:fon});
+        })
+    })
+});
+
+app.post("/question/2/answer", (req, res) => {
+
+  let e = 1;
+  let textdata;
+  let col = req.body.col;
+  let fon = req.body.choice;
+  let gb;
+
+  // テキスト
+  let sqlb = "select *"
+    + " from text"
+    + " where text.id = " + "2"
+    + ";";
+    db.serialize( () => {
+        db.all(sqlb, (error, data) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            //console.log(data);    // ③
+            textdata = data;
+        })
+    })
+
+  //　選択肢
+  let sqlc = "select *" 
+    + " from font" 
+    + ";";
+    db.serialize( () => {
+        db.all(sqlc, (error, choices) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            for(i=0;i<choices.length;i++){
+              if(choices[i].face == fon) gb = choices[i].gb;
+            }
+            
+            res.render('layout2', {textdata:textdata,choices:choices,e:e,col:col,fon:fon,gb:gb});
         })
     })
 });
