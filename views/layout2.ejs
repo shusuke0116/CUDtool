@@ -5,7 +5,7 @@
   <title>CUD学習ツール</title>
 </head>
 <script>
-  function choiceColor(font) {
+function choiceFont(font) {
   const sen = document.querySelector("#sen");
   sen.style.fontFamily = font;
 }
@@ -33,12 +33,14 @@ font-family:<%= fon %>;
             else c = "";
         %>
         <font face="<%= row.face %>">
-          <input type="radio" name="choice" id="<%= row.face %>" value="<%= row.face %>" onclick="choiceColor(this.id)" <%= c %> ><%= row.name %>
+          <input type="radio" name="choice" id="<%= row.face %>" value="<%= row.face %>" onclick="choiceFont(this.id)" <%= c %> ><%= row.name %>
         </font>
         <% } %>
       </p>
     <div>
-      <p><font size=5><span id="sen">カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</span></font></p>
+      <font size=5>
+        <p><span id="sen">カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</span></p>
+      </font>
     </div>    
   </div>
   
@@ -66,7 +68,7 @@ font-family:<%= fon %>;
           <p><%= textdata[0].good %></p>  
           <p><%= textdata[0].adv %></p>
           <div>
-            <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+            <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col %>">次の項目へ</a></p>
           </div>
         <% } %>
       </div>

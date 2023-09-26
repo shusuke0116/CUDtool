@@ -5,7 +5,7 @@
   <title>CUD学習ツール</title>
 </head>
 <script>
-  function choiceColor() {
+function choiceColor() {
   const sen = document.querySelector("#sen");
 }
 </script>
@@ -18,7 +18,7 @@ color:<%= '#' + col %>;
   <h1><%= textdata[0].item %></h1>
   <hr>
 
-  <form action="/answer" method="post">
+  <form action="/question/ /answer" method="post">
   <div id="que">
     <div>
       <p><%= textdata[0].que %></p>
@@ -35,7 +35,7 @@ color:<%= '#' + col %>;
         <% } %>
       </p>
     <div>
-      <span id="sen"><%= textdata[0].sen %></span>
+      <span id="sen"></span>
     </div>    
   </div>
   
@@ -49,9 +49,6 @@ color:<%= '#' + col %>;
     <div id="eva">
       <div>
         <p>別色覚視点</p>
-        <p>P型：<span style="color:<%= '#' + col[1] %>"><%= textdata[0].sen %></span></p>
-        <p>D型：<span style="color:<%= '#' + col[2] %>"><%= textdata[0].sen %></span></p>
-        <p>S型：<span style="color:<%= '#' + col[3] %>"><%= textdata[0].sen %></span></p>
       </div>
       <div>
         <% if(gb == 0) { %> 

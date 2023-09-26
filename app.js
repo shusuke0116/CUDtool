@@ -12,31 +12,8 @@ app.get("/", (req, res) => {
   res.render('top'); 
 });
 
-app.get("/question", (req, res) => {
-
-  let e = 0;
-  let data;
-  
-  let sql = "select text.id as t_id,item,que,color.name,ccode" 
-    + " from text,tc inner join color" 
-    + " on ( (text.id=tc.t_id) and (color.id=tc.c_id) )"
-    + " where text.id = "+ req.params.id 
-    + ";";
-    db.serialize( () => {
-        db.all(sql, (error, data) => {
-            if( error ) {
-              res.render('show', {mes:"エラーです"});
-            }
-            //console.log(data);    // ③
-            res.render('layout', {data:data,e:e});
-        })
-    })
-  
-});
-
 app.get("/question/1", (req, res) => {
 
-  let e = 0;
   let textdata;
   let col = new Array(3);
   
@@ -66,7 +43,7 @@ app.get("/question/1", (req, res) => {
             }
             //console.log(choices); 
             col[0] = choices[0].ccode;
-            res.render('layout', {textdata:textdata,choices:choices,e:e,col:col});
+            res.render('layout', {e:0,textdata:textdata,choices:choices,col:col});
         })
     })
   
@@ -74,7 +51,6 @@ app.get("/question/1", (req, res) => {
 
 app.post("/question/1/answer", (req, res) => {
 
-  let e = 1;
   let textdata;
   let gb;
   let col = new Array(4);
@@ -83,7 +59,7 @@ app.post("/question/1/answer", (req, res) => {
   let sql = "select gb,ccode,pcode,dcode,scode"
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
-    + " where t_id = "+ "1" 
+    + " where t_id = "+ req.body.id
     + " and c_id = "+ req.body.choice
     + ";";
     db.serialize( () => {
@@ -126,16 +102,15 @@ app.post("/question/1/answer", (req, res) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
-            res.render('layout', {textdata:textdata,choices:choices,e:e,gb:gb,col:col});
+            res.render('layout', {e:1,textdata:textdata,choices:choices,col:col,gb:gb});
         })
     })
 });
 
 app.get("/question/2/:col", (req, res) => {
 
-  let e = 0;
   let textdata;
-  let col = req.params.col
+  let col = req.params.col;
   let fon;
 
   // テキスト
@@ -164,14 +139,13 @@ app.get("/question/2/:col", (req, res) => {
             }
             //console.log(choices);
             fon = choices[0].face;
-            res.render('layout2', {textdata:textdata,choices:choices,e:e,col:col,fon:fon});
+            res.render('layout2', {e:0,textdata:textdata,choices:choices,col:col,fon:fon});
         })
     })
 });
 
 app.post("/question/2/answer", (req, res) => {
 
-  let e = 1;
   let textdata;
   let col = req.body.col;
   let fon = req.body.choice;
@@ -180,7 +154,7 @@ app.post("/question/2/answer", (req, res) => {
   // テキスト
   let sqlb = "select *"
     + " from text"
-    + " where text.id = " + "2"
+    + " where text.id = " + req.body.id;
     + ";";
     db.serialize( () => {
         db.all(sqlb, (error, data) => {
@@ -205,12 +179,72 @@ app.post("/question/2/answer", (req, res) => {
               if(choices[i].face == fon) gb = choices[i].gb;
             }
             
-            res.render('layout2', {textdata:textdata,choices:choices,e:e,col:col,fon:fon,gb:gb});
+            res.render('layout2', {e:1,textdata:textdata,choices:choices,col:col,fon:fon,gb:gb});
         })
     })
 });
 
+app.get("/question/3/:col", (req, res) => {
 
+  let col = req.params.col;
+
+  // テキスト
+  let sqlb = "select id,item,que"
+    + " from text"
+    + " where text.id = " + "3"
+    + ";";
+    db.serialize( () => {
+        db.all(sqlb, (error, data) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            //console.log(data);    // ③
+            res.render('layout3', {e:0,textdata:data,col:col,li:"",bo:"",ch:["",""]});
+        })
+    })
+});
+
+app.post("/question/3/answer", (req, res) => {
+
+  let col = req.body.col;
+  let gb;
+  let ch = new Array(2);
+  let li;
+  let bo;
+
+  if(req.body.line == 1 ){
+    ch[0] = "checked";
+    li = "underline";
+    gb = 1;
+  } else{
+    ch[0] = "";
+    li = "none";
+    gb = 0;
+  }
+  if(req.body.bold == 1 ){
+    ch[1] = "checked";
+    bo = "bold";
+  } else{
+    ch[1] = "";
+    bo = "normal";
+    gb = 0;
+  }
+
+  // テキスト
+  let sqlb = "select *"
+    + " from text"
+    + " where text.id = " + req.body.id
+    + ";";
+    db.serialize( () => {
+        db.all(sqlb, (error, data) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            //console.log(data);    // ③
+            res.render('layout3', {e:1,textdata:data,col:col,gb:gb,li:li,bo:bo,ch:ch});
+        })
+    })
+});
 
 /* まとめページ */
 
