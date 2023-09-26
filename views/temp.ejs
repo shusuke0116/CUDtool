@@ -56,22 +56,18 @@ color:<%= '#' + col %>;
       <div>
         <% if(gb == 0) { %> 
           <p><%= textdata[0].bad %></p>
+          <p><%= textdata[0].adv %></p>
+          <p>別の選択肢を選んでください</p>
         <% }else{ %> 
           <p><%= textdata[0].good %></p>  
+          <p><%= textdata[0].adv %></p>
+          <div>
+            <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+          </div>
         <% } %>
-      </div>
-      <div>
-        <p><%= textdata[0].adv %></p>
       </div>
     </div>
   <% } %>
-
-  <form action="<%= 'question/' + (parseInt(textdata[0].id)+1) %>" method="post">
-  <div>
-    <input type="hidden" name="ch" value="<%= col[0] %>">
-    <p><input type="submit" value="次の項目へ"></p>
-  </div>
-  </form>
 
 </body>
 </html>

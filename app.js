@@ -17,7 +17,7 @@ app.get("/question", (req, res) => {
   let e = 0;
   let data;
   
-  let sql = "select text.id as t_id,item,que,sen,color.name,ccode" 
+  let sql = "select text.id as t_id,item,que,color.name,ccode" 
     + " from text,tc inner join color" 
     + " on ( (text.id=tc.t_id) and (color.id=tc.c_id) )"
     + " where text.id = "+ req.params.id 
@@ -40,7 +40,7 @@ app.get("/question/1", (req, res) => {
   let textdata;
   let col = new Array(3);
   
-  let sql = "select id,item,que,sen" 
+  let sql = "select id,item,que" 
     + " from text"
     + " where text.id = "+ "1"
     + ";";
@@ -139,7 +139,7 @@ app.get("/question/2/:col", (req, res) => {
   let fon;
 
   // テキスト
-  let sqlb = "select *"
+  let sqlb = "select id,item,que"
     + " from text"
     + " where text.id = " + "2"
     + ";";
@@ -209,6 +209,8 @@ app.post("/question/2/answer", (req, res) => {
         })
     })
 });
+
+
 
 /* まとめページ */
 

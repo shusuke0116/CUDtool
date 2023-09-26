@@ -12,7 +12,6 @@
 </script>
 <style type="text/css">
 span#sen {
-color:<%= '#' + col %>;
 font-family:<%= fon %>;
 }
 </style>
@@ -39,7 +38,7 @@ font-family:<%= fon %>;
         <% } %>
       </p>
     <div>
-      <font size=6><span id="sen"><%= textdata[0].sen %></span></font>
+      <p><font size=5><span id="sen">カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</span></font></p>
     </div>    
   </div>
   
@@ -55,26 +54,24 @@ font-family:<%= fon %>;
       <div>
         <p>別視フォントとの比較</p>
         <% for (let row of choices){ %>
-          <p><%= row.name %>:<font size=6 color="<%= '#' + col %>" face="<%= row.face %>"><%= textdata[0].sen %></font></p>
+        <p><font size=5 face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</font></p>
         <% } %>
       </div>
       <div>
         <% if(gb == 0) { %> 
           <p><%= textdata[0].bad %></p>
+          <p><%= textdata[0].adv %></p>
+          <p>別の選択肢を選んでください</p>
         <% }else{ %> 
           <p><%= textdata[0].good %></p>  
+          <p><%= textdata[0].adv %></p>
+          <div>
+            <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+          </div>
         <% } %>
-      </div>
-      <div>
-        <p><%= textdata[0].adv %></p>
       </div>
     </div>
   <% } %>
-
-  <div>
-    <input type="hidden" name="ch" value="<%= col[0] %>">
-    <p><input type="submit" value="次の項目へ"></p>
-  </div>
 
 </body>
 </html>

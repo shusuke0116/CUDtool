@@ -39,7 +39,7 @@ color:<%= "#" + col[0] %>;
         <% } %>
       </p>
     <div>
-      <font size=6><span id="sen"><%= textdata[0].sen %></span></font>
+      <p><font size=5>カラー<span id="sen">ユニバーサル</span>デザイン</font></p>
     </div>    
   </div>
   
@@ -53,27 +53,27 @@ color:<%= "#" + col[0] %>;
     <div id="eva">
       <div>
         <p>別色覚視点</p>
-        <p>P型：<span style="color:<%= '#' + col[1] %>"><%= textdata[0].sen %></span></p>
-        <p>D型：<span style="color:<%= '#' + col[2] %>"><%= textdata[0].sen %></span></p>
-        <p>S型：<span style="color:<%= '#' + col[3] %>"><%= textdata[0].sen %></span></p>
+        <font size=5>
+          <p>P型：カラー<span style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン</p>
+          <p>D型：カラー<span style="color:<%= '#' + col[2] %>">ユニバーサル</span>デザイン</p>
+          <p>S型：カラー<span style="color:<%= '#' + col[3] %>">ユニバーサル</span>デザイン</p>
+        </font>
       </div>
       <div>
         <% if(gb == 0) { %> 
           <p><%= textdata[0].bad %></p>
+          <p><%= textdata[0].adv %></p>
+          <p>別の選択肢を選んでください</p>
         <% }else{ %> 
           <p><%= textdata[0].good %></p>  
+          <p><%= textdata[0].adv %></p>
+          <div>
+            <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+          </div>
         <% } %>
-      </div>
-      <div>
-        <p><%= textdata[0].adv %></p>
       </div>
     </div>
   <% } %>
-
-  <div>
-    <input type="hidden" name="ch" value="<%= col[0] %>">
-    <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
-  </div>
 
 </body>
 </html>

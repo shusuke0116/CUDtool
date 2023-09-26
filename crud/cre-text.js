@@ -6,7 +6,6 @@ create table text(
   id integer primary key,
   item text NOT NULL,
   que text NOT NULL,
-  sen text NOT NULL,
   good text NOT NULL,
   bad text NOT NULL,
   adv text NOT NULL
