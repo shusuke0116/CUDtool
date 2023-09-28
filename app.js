@@ -43,7 +43,7 @@ app.get("/question/1", (req, res) => {
             }
             //console.log(choices); 
             col[0] = choices[0].ccode;
-            res.render('layout', {e:0,textdata:textdata,choices:choices,col:col});
+            res.render('layout_1a', {e:0,textdata:textdata,choices:choices,col:col});
         })
     })
   
@@ -102,7 +102,7 @@ app.post("/question/1/answer", (req, res) => {
             if( error ) {
               res.render('show', {mes:"エラーです"});
             }
-            res.render('layout', {e:1,textdata:textdata,choices:choices,col:col,gb:gb});
+            res.render('layout_1a', {e:1,textdata:textdata,choices:choices,col:col,gb:gb});
         })
     })
 });
@@ -139,7 +139,7 @@ app.get("/question/2/:col", (req, res) => {
             }
             //console.log(choices);
             fon = choices[0].face;
-            res.render('layout2', {e:0,textdata:textdata,choices:choices,col:col,fon:fon});
+            res.render('layout_1b', {e:0,textdata:textdata,choices:choices,col:col,fon:fon});
         })
     })
 });
@@ -179,7 +179,7 @@ app.post("/question/2/answer", (req, res) => {
               if(choices[i].face == fon) gb = choices[i].gb;
             }
             
-            res.render('layout2', {e:1,textdata:textdata,choices:choices,col:col,fon:fon,gb:gb});
+            res.render('layout_1b', {e:1,textdata:textdata,choices:choices,col:col,fon:fon,gb:gb});
         })
     })
 });
@@ -199,7 +199,7 @@ app.get("/question/3/:col", (req, res) => {
               res.render('show', {mes:"エラーです"});
             }
             //console.log(data);    // ③
-            res.render('layout3', {e:0,textdata:data,col:col,li:"",bo:"",ch:["",""]});
+            res.render('layout_1c', {e:0,textdata:data,col:col,li:"",bo:"",ch:["",""]});
         })
     })
 });
@@ -241,7 +241,7 @@ app.post("/question/3/answer", (req, res) => {
               res.render('show', {mes:"エラーです"});
             }
             //console.log(data);    // ③
-            res.render('layout3', {e:1,textdata:data,col:col,gb:gb,li:li,bo:bo,ch:ch});
+            res.render('layout_1c', {e:1,textdata:data,col:col,gb:gb,li:li,bo:bo,ch:ch});
         })
     })
 });

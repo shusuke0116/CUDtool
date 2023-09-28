@@ -5,7 +5,10 @@ let sql =
   `insert into color (name,ccode,pcode,dcode,scode) values` 
   + `("赤","FF2C01","76742C","A7A32F","FF2C01"),` 
   + `("橙","FFC706","E7D404","EEDC04","FF8B86"),`
-  + `("青","0348BC","004FD7","004ED6","00163E")`
+  + `("緑","0DAE00","AEA52B","9F9628","2980C4"),`
+  + `("黄緑","29EB05","E7DF01","D1CB02","A8D5EB"),`
+  + `("青","0348BC","004FD7","004ED6","00163E"),`
+  + `("水色","00D6DE","9ACEEE","8EC1DF","2866D3")`
   + `;`;
 
 

@@ -1,0 +1,106 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CUD学習ツール</title>
+</head>
+<script>
+function choiceLine() {
+  const phrase = document.querySelector("#phrase1");
+  phrase.style.textDecoration = "underline";
+}
+function choiceBold() {
+  const phrase = document.querySelector("#phrase2");
+  phrase.style.fontWeight = "bold";
+}
+function choiceClearLine() {
+  const phrase = document.querySelector("#phrase1");
+  phrase.style.textDecoration = "none";
+}
+function choiceClearBold() {
+  const phrase = document.querySelector("#phrase2");
+  phrase.style.fontWeight = "normal";
+}
+</script>
+<style type="text/css">
+span#phrase1 {
+color:<%= "#" + col %>;
+text-decoration:<%= li %>
+}
+span#phrase2 {
+color:<%= "#" + col %>;
+font-weight:<%= bo %>
+}
+#cho{
+  font-size: 1.5rem;
+}
+#sen{
+  border: 2px solid;
+  border-color:#c8c8c8;
+  font-family:"san-serif";
+  font-size: 1.75rem;
+  width: 450px;
+}
+.button{
+  font-size: 1rem;
+}
+#ano{
+  border: 2px solid;
+  border-color:#c8c8c8;
+  font-size: 1.75rem;
+  width: 450px;
+}
+</style>
+<body>
+  <h1>文字の強調：<%= textdata[0].item %></h1>
+  <hr>
+
+  <form action="/question/3/answer" method="post">
+  <div id="que">
+    <div>
+      <p><%= textdata[0].que %></p>
+    </div>
+    <div id="cho">
+      <input type="radio" name="line" value="0" onclick="choiceClearLine()" checked>装飾なし
+      <input type="radio" name="line" value="1" onclick="choiceLine()" <%= ch[0] %> >アンダーラインを引く
+    </div>
+    <div id="sen">
+      <p>カラー<span id="phrase1">ユニバーサル</span>デザイン</p>
+    </div>  
+    <div id="cho">
+      <input type="radio" name="bold" value="0" onclick="choiceClearBold()" checked>装飾なし
+      <input type="radio" name="bold" value="1" onclick="choiceBold()" <%= ch[1] %> >太字にする</p>
+    </div>
+    <div id="sen">
+      <p>カラー<span id="phrase2">ユニバーサル</span>デザイン</p>
+    </div>  
+  </div>
+  
+  <div id="button">
+    <input type="hidden" name="id" value="<%= textdata[0].id %>">
+    <input type="hidden" name="col" value="<%= col %>">
+    <p><input type="submit" value="評価"></p>
+  </div>
+  </form>
+
+  <% if(e == 1){ %>
+    <div id="eva">
+      <div id=ano>
+        別色覚視点<br>
+      </div>
+      <div>
+        <% if(gb == 0) { %> 
+          <p><%= textdata[0].bad %></p>
+          <p><%= textdata[0].adv %></p>
+        <% }else{ %> 
+          <p><%= textdata[0].good %></p>  
+          <p><%= textdata[0].adv %></p>
+          <hr>
+          <p><a href="/">top page</a></p>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CUD学習ツール</title>
+</head>
+<script>
+function choiceFont(font) {
+  const phrase = document.querySelector("#phrase");
+  phrase.style.fontFamily = font;
+}
+</script>
+<style type="text/css">
+span#phrase {
+  font-family:<%= fon %>;
+}
+#cho{
+  font-size: 1.5rem;
+}
+#sen{
+  border: 2px solid;
+  border-color:#c8c8c8;
+  font-size: 1.75rem;
+  width: 550px;
+}
+.button{
+  font-size: 1rem;
+}
+#ano{
+  border: 2px solid;
+  border-color:#c8c8c8;
+  font-size: 1.75rem;
+  width: 550px;
+}
+</style>
+<body>
+  <h1>文字の強調：<%= textdata[0].item %></h1>
+  <hr>
+
+  <form action="/question/2/answer" method="post">
+  <div id="que">
+    <div>
+      <p><%= textdata[0].que %></p>
+    </div>
+    <div id="cho">
+      <% let c; 
+        for (let row of choices){ 
+          if(row.face == fon) c = "checked";
+          else c = "";
+      %>
+      <font face="<%= row.face %>">
+        <input type="radio" name="choice" id="<%= row.face %>" value="<%= row.face %>" onclick="choiceFont(this.id)" <%= c %> ><%= row.name %>
+      </font>
+      <% } %>
+    </p>
+    <div id="sen">
+      <p><span id="phrase">カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</span></p>
+    </div>    
+  </div>
+  
+  <div id="button">
+    <input type="hidden" name="id" value="<%= textdata[0].id %>">
+    <input type="hidden" name="col" value="<%= col %>">
+    <p><input type="submit" value="評価"></p>
+  </div>
+  </form>
+
+  <% if(e == 1){ %>
+    <div id="eva">
+      <div id=ano>
+        別視フォントとの比較<br>
+        <% for (let row of choices){ %>
+        <font face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</font><br>
+        <% } %>
+      </div>
+      <div>
+        <% if(gb == 0) { %> 
+          <p><%= textdata[0].bad %></p>
+          <p>ポイント：<%= textdata[0].adv %></p>
+          <p>別の選択肢を選んでください</p>
+        <% }else{ %> 
+          <p><%= textdata[0].good %></p>  
+          <p>ポイント：<%= textdata[0].adv %></p>
+          <hr>
+          <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col %>">次の項目へ</a></p>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+
+</body>
+</html>
