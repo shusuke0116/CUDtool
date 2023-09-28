@@ -24,11 +24,11 @@ function choiceClearBold() {
 </script>
 <style type="text/css">
 span#phrase1 {
-color:<%= "#" + col %>;
+color:<%= "#" + col[0] %>;
 text-decoration:<%= li %>
 }
 span#phrase2 {
-color:<%= "#" + col %>;
+color:<%= "#" + col[0] %>;
 font-weight:<%= bo %>
 }
 #cho{
@@ -50,6 +50,7 @@ font-weight:<%= bo %>
   font-size: 1.75rem;
   width: 450px;
 }
+
 </style>
 <body>
   <h1>文字の強調：<%= textdata[0].item %></h1>
@@ -78,21 +79,24 @@ font-weight:<%= bo %>
   
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
-    <input type="hidden" name="col" value="<%= col %>">
+    <input type="hidden" name="col" value="<%= col[0] %>">
     <p><input type="submit" value="評価"></p>
   </div>
   </form>
 
   <% if(e == 1){ %>
     <div id="eva">
-      <div id=ano>
-        別色覚視点<br>
-      </div>
       <div>
         <% if(gb == 0) { %> 
           <p><%= textdata[0].bad %></p>
           <p><%= textdata[0].adv %></p>
         <% }else{ %> 
+          <div id=ano>
+            装飾なしとの比較（P型）<br>
+            カラー<span style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン<br>
+            カラー<span id="phrase1" style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン<br>
+            カラー<span id="phrase2" style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン
+          </div>
           <p><%= textdata[0].good %></p>  
           <p><%= textdata[0].adv %></p>
           <hr>

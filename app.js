@@ -110,7 +110,7 @@ app.post("/question/1/answer", (req, res) => {
 app.get("/question/2/:col", (req, res) => {
 
   let textdata;
-  let col = req.params.col;
+  let col = [req.params.col,""];
   let fon;
 
   // テキスト
@@ -147,9 +147,26 @@ app.get("/question/2/:col", (req, res) => {
 app.post("/question/2/answer", (req, res) => {
 
   let textdata;
-  let col = req.body.col;
+  let col = new Array(2);
   let fon = req.body.choice;
   let gb;
+
+  // 選択されていた色のカラーコード
+  let sql = "select ccode,pcode"
+    + " from tc inner join color" 
+    + " on (color.id=tc.c_id)"
+    + " where t_id = 1"
+    + " and ccode = '"+ req.body.col + "'"
+    + ";";
+    db.serialize( () => {
+        db.all(sql, (error, eva) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            col[0] = eva[0].ccode;
+            col[1] = eva[0].pcode;
+        })
+    })
 
   // テキスト
   let sqlb = "select *"
@@ -186,7 +203,7 @@ app.post("/question/2/answer", (req, res) => {
 
 app.get("/question/3/:col", (req, res) => {
 
-  let col = req.params.col;
+  let col = [req.params.col,""];
 
   // テキスト
   let sqlb = "select id,item,que"
@@ -206,7 +223,7 @@ app.get("/question/3/:col", (req, res) => {
 
 app.post("/question/3/answer", (req, res) => {
 
-  let col = req.body.col;
+  let col = new Array(2);
   let gb;
   let ch = new Array(2);
   let li;
@@ -229,6 +246,23 @@ app.post("/question/3/answer", (req, res) => {
     bo = "normal";
     gb = 0;
   }
+
+  // 選択されていた色のカラーコード
+  let sql = "select ccode,pcode"
+    + " from tc inner join color" 
+    + " on (color.id=tc.c_id)"
+    + " where t_id = 1"
+    + " and ccode = '"+ req.body.col + "'"
+    + ";";
+    db.serialize( () => {
+        db.all(sql, (error, eva) => {
+            if( error ) {
+              res.render('show', {mes:"エラーです"});
+            }
+            col[0] = eva[0].ccode;
+            col[1] = eva[0].pcode;
+        })
+    })
 
   // テキスト
   let sqlb = "select *"

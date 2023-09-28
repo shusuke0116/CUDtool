@@ -54,13 +54,13 @@ span#phrase {
       <% } %>
     </p>
     <div id="sen">
-      <p><span id="phrase">カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</span></p>
+      <p><span id="phrase">カラー<span style="color:<%= '#' + col[0] %>" >ユニバーサル</span>デザイン</span></p>
     </div>    
   </div>
   
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
-    <input type="hidden" name="col" value="<%= col %>">
+    <input type="hidden" name="col" value="<%= col[0] %>">
     <p><input type="submit" value="評価"></p>
   </div>
   </form>
@@ -68,9 +68,9 @@ span#phrase {
   <% if(e == 1){ %>
     <div id="eva">
       <div id=ano>
-        別視フォントとの比較<br>
+        別視フォントとの比較(P型色覚)<br>
         <% for (let row of choices){ %>
-        <font face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col %>" >ユニバーサル</span>デザイン</font><br>
+        <font face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col[1] %>" >ユニバーサル</span>デザイン</font><br>
         <% } %>
       </div>
       <div>
@@ -82,7 +82,7 @@ span#phrase {
           <p><%= textdata[0].good %></p>  
           <p>ポイント：<%= textdata[0].adv %></p>
           <hr>
-          <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col %>">次の項目へ</a></p>
+          <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
         <% } %>
       </div>
     </div>
