@@ -68,10 +68,13 @@ span#phrase {
   <% if(e == 1){ %>
     <div id="eva">
       <div id=ano>
-        別視フォントとの比較(P型色覚)<br>
+        <別フォントとの比較(P型色覚)><br>
         <% for (let row of choices){ %>
         <font face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col[1] %>" >ユニバーサル</span>デザイン</font><br>
         <% } %>
+      </div>
+      <div>
+        <p>※一般に、ゴシック体は幅が一定なフォントであり、明朝体は細い線と太い線が合わさったフォントになっています。</p>
       </div>
       <div>
         <% if(gb == 0) { %> 
