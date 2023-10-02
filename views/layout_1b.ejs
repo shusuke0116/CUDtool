@@ -34,13 +34,15 @@ span#phrase {
 }
 </style>
 <body>
-  <h1>文字の強調：<%= textdata[0].item %></h1>
+  <h1>2. <%= textdata[0].item %></h1>
   <hr>
 
   <form action="/question/2/answer" method="post">
   <div id="que">
     <div>
       <p><%= textdata[0].que %></p>
+      <p>※一般に、明朝体はうろこがあり、細い線と太い線が合わさったフォントになっています。<br>
+          　対して、ゴシック体はうろこがなく、線の幅が一定なフォントになっています。</p>
     </div>
     <div id="cho">
       <% let c; 
@@ -72,9 +74,6 @@ span#phrase {
         <% for (let row of choices){ %>
         <font face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col[1] %>" >ユニバーサル</span>デザイン</font><br>
         <% } %>
-      </div>
-      <div>
-        <p>※一般に、ゴシック体は幅が一定なフォントであり、明朝体は細い線と太い線が合わさったフォントになっています。</p>
       </div>
       <div>
         <% if(gb == 0) { %> 
