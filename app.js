@@ -53,10 +53,10 @@ app.post("/question/1/answer", (req, res) => {
 
   let textdata;
   let gb;
-  let col = new Array(4);
+  let col = new Array(5);
 
   // 選択されていた色の評価とカラーコード
-  let sql = "select gb,ccode,pcode,dcode,scode"
+  let sql = "select gb,name,ccode,pcode,dcode,scode"
     + " from tc inner join color" 
     + " on (color.id=tc.c_id)"
     + " where t_id = "+ req.body.id
@@ -73,6 +73,7 @@ app.post("/question/1/answer", (req, res) => {
             col[1] = eva[0].pcode;
             col[2] = eva[0].dcode;
             col[3] = eva[0].scode;
+            col[4] = eva[0].name;
         })
     })
 

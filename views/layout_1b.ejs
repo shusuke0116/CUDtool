@@ -11,26 +11,41 @@ function choiceFont(font) {
 }
 </script>
 <style type="text/css">
+span#col{
+  color:<%= '#' + col[0] %>
+}
+span.acol{
+  color:<%= '#' + col[1] %>
+}
 span#phrase {
   font-family:<%= fon %>;
 }
-#cho{
+span#gos{
+  font-family:sans-serif;
+}
+span#min{
+  font-family:serif;
+}
+#que,#eva{
   font-size: 1.5rem;
 }
-#sen{
+#cho{
+  font-size: 1.75rem;
+}
+#sen,#ano{
   border: 2px solid;
   border-color:#c8c8c8;
   font-size: 1.75rem;
-  width: 550px;
+  width:  <%= 1.75*19 %>rem;
+}
+#sen{
+  text-align:center;
+}
+#sim{
+  text-align:right;
 }
 .button{
-  font-size: 1rem;
-}
-#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-size: 1.75rem;
-  width: 550px;
+  font-size: 1.5rem;
 }
 </style>
 <body>
@@ -39,54 +54,50 @@ span#phrase {
 
   <form action="/question/2/answer" method="post">
   <div id="que">
-    <div>
-      <p><%= textdata[0].que %></p>
-      <p>※一般に、明朝体はうろこがあり、細い線と太い線が合わさったフォントになっています。<br>
+    <p><%= textdata[0].que %></p>
+    <p>※一般に、明朝体はうろこがあり、細い線と太い線が合わさったフォントになっています。<br>
           　対して、ゴシック体はうろこがなく、線の幅が一定なフォントになっています。</p>
-    </div>
-    <div id="cho">
-      <% let c; 
-        for (let row of choices){ 
-          if(row.face == fon) c = "checked";
-          else c = "";
-      %>
-      <font face="<%= row.face %>">
-        <input type="radio" name="choice" id="<%= row.face %>" value="<%= row.face %>" onclick="choiceFont(this.id)" <%= c %> ><%= row.name %>
-      </font>
-      <% } %>
-    </p>
-    <div id="sen">
-      <p><span id="phrase">カラー<span style="color:<%= '#' + col[0] %>" >ユニバーサル</span>デザイン</span></p>
-    </div>    
   </div>
+  <div id="cho">
+    <% let c; 
+      for (let row of choices){ 
+        if(row.face == fon) c = "checked";
+        else c = ""; %>
+    <font face="<%= row.face %>">
+      <input type="radio" name="choice" id="<%= row.face %>" value="<%= row.face %>" onclick="choiceFont(this.id)" <%= c %> ><%= row.name %>
+    </font>
+    <% } %>
+  </div>
+  <div id="sen">
+    <p><span id="phrase">カラー<span id="col">ユニバーサル</span>デザイン</span></p>
+  </div>    
   
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
     <input type="hidden" name="col" value="<%= col[0] %>">
-    <p><input type="submit" value="評価"></p>
+    <p><input type="submit" value="評価" class="button"></p>
   </div>
   </form>
 
   <% if(e == 1){ %>
+    <div id=ano>
+      ＜別フォントとの比較(P型色覚)＞<br>
+      <div id="sim">
+        ゴシック体:<span id="gos">カラー<span class="acol">ユニバーサル</span>デザイン</span><br>
+        明朝体:<span id="min">カラー<span class="acol">ユニバーサル</span>デザイン</span><br>
+      </div>
+    </div>
     <div id="eva">
-      <div id=ano>
-        <別フォントとの比較(P型色覚)><br>
-        <% for (let row of choices){ %>
-        <font face="<%= row.face %>"><%= row.name %>:カラー<span style="color:<%= '#' + col[1] %>" >ユニバーサル</span>デザイン</font><br>
-        <% } %>
-      </div>
-      <div>
-        <% if(gb == 0) { %> 
-          <p><%= textdata[0].bad %></p>
-          <p>ポイント：<%= textdata[0].adv %></p>
-          <p>別の選択肢を選んでください</p>
-        <% }else{ %> 
-          <p><%= textdata[0].good %></p>  
-          <p>ポイント：<%= textdata[0].adv %></p>
-          <hr>
-          <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
-        <% } %>
-      </div>
+      <% if(gb == 0) { %> 
+        <p><%= textdata[0].bad %></p>
+        <p>ポイント：<%= textdata[0].adv %></p>
+        <p>別の選択肢を選んでください</p>
+      <% }else{ %> 
+        <p><%= textdata[0].good %></p>  
+        <p>ポイント：<%= textdata[0].adv %></p>
+        <hr>
+        <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+      <% } %>
     </div>
   <% } %>
 

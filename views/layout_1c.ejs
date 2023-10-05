@@ -23,32 +23,33 @@ function choiceClearBold() {
 }
 </script>
 <style type="text/css">
+span#phrase1,#phrase2{
+  color:<%= "#" + col[0] %>;
+}
 span#phrase1 {
-color:<%= "#" + col[0] %>;
-text-decoration:<%= li %>
+  text-decoration:<%= li %>
 }
 span#phrase2 {
-color:<%= "#" + col[0] %>;
-font-weight:<%= bo %>
+  font-weight:<%= bo %>
 }
-#cho{
+span.acol{
+  color:<%= "#" + col[1] %>;
+}
+#que,#eva{
   font-size: 1.5rem;
 }
-#sen{
+#cho{
+  font-size: 1.75rem;
+}
+#sen,#ano{
   border: 2px solid;
   border-color:#c8c8c8;
   font-family:sans-serif;
   font-size: 1.75rem;
-  width: 450px;
+  width: <%= 1.75*16 %>rem;
 }
 .button{
-  font-size: 1rem;
-}
-#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-size: 1.75rem;
-  width: 450px;
+  font-size: 1.5rem;
 }
 
 </style>
@@ -58,29 +59,27 @@ font-weight:<%= bo %>
 
   <form action="/question/3/answer" method="post">
   <div id="que">
-    <div>
-      <p><%= textdata[0].que %></p>
-    </div>
-    <div id="cho">
-      <input type="radio" name="line" value="0" onclick="choiceClearLine()" checked>装飾なし
-      <input type="radio" name="line" value="1" onclick="choiceLine()" <%= ch[0] %> >アンダーラインを引く
-    </div>
-    <div id="sen">
-      <p>カラー<span id="phrase1">ユニバーサル</span>デザイン</p>
-    </div>  
-    <div id="cho">
-      <input type="radio" name="bold" value="0" onclick="choiceClearBold()" checked>装飾なし
-      <input type="radio" name="bold" value="1" onclick="choiceBold()" <%= ch[1] %> >太字にする</p>
-    </div>
-    <div id="sen">
-      <p>カラー<span id="phrase2">ユニバーサル</span>デザイン</p>
-    </div>  
+    <p><%= textdata[0].que %></p>
   </div>
+  <div id="cho">
+    <input type="radio" name="line" value="0" onclick="choiceClearLine()" checked>装飾なし
+    <input type="radio" name="line" value="1" onclick="choiceLine()" <%= ch[0] %> >アンダーラインを引く
+  </div>
+  <div id="sen">
+    <p>カラー<span id="phrase1">ユニバーサル</span>デザイン</p>
+  </div>  
+  <div id="cho">
+    <input type="radio" name="bold" value="0" onclick="choiceClearBold()" checked>装飾なし
+    <input type="radio" name="bold" value="1" onclick="choiceBold()" <%= ch[1] %> >太字にする</p>
+  </div>
+  <div id="sen">
+    <p>カラー<span id="phrase2">ユニバーサル</span>デザイン</p>
+  </div>  
   
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
     <input type="hidden" name="col" value="<%= col[0] %>">
-    <p><input type="submit" value="評価"></p>
+    <p><input type="submit" value="評価" class="button"></p>
   </div>
   </form>
 
@@ -92,10 +91,10 @@ font-weight:<%= bo %>
           <p><%= textdata[0].adv %></p>
         <% }else{ %> 
           <div id=ano>
-            <装飾なしとの比較（P型）><br>
-            カラー<span style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン<br>
-            カラー<span id="phrase1" style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン<br>
-            カラー<span id="phrase2" style="color:<%= '#' + col[1] %>">ユニバーサル</span>デザイン
+            ＜装飾なしとの比較（P型）＞<br>
+            カラー<span class="acol">ユニバーサル</span>デザイン<br>
+            カラー<span id="phrase1" class="acol">ユニバーサル</span>デザイン<br>
+            カラー<span id="phrase2" class="acol">ユニバーサル</span>デザイン
           </div>
           <p><%= textdata[0].good %></p>  
           <p><%= textdata[0].adv %></p>
