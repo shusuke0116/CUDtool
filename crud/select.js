@@ -1,11 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
-let sql = "select ccode,pcode"
-    + " from tc inner join color" 
-    + " on (color.id=tc.c_id)"
-    + " where t_id = 1"
-    + " and ccode = 'FFC706'"
+let sql = "select gb"
+    + " from eva" 
+    + " where cola = 1" 
+    + " and colb = 3"
     + ";";
 
 db.serialize(() => {
