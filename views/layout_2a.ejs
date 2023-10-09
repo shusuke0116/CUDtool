@@ -14,17 +14,28 @@ function choiceColor(code) {
 p.ex{
   font-size: 1.5rem;
 }
-span#phrase {
+p#phrase{
   color:<%= "#" + col[0] %>;
 }
-span#a1 {
+.a0,.a1,.a2,.a3{
+  font-weight: bold;
+  text-align:center;
+}
+.a0{
+  color:<%= "#" + col[0] %>;
+  background-color:<%= "#" + bcol[0] %>;
+}
+.a1 {
   color:<%= "#" + col[1] %>;
+  background-color:<%= "#" + bcol[1] %>;
 }
-span#a2 {
+.a2 {
   color:<%= "#" + col[2] %>;
+  background-color:<%= "#" + bcol[2] %>;
 }
-span#a3 {
+.a3 {
   color:<%= "#" + col[3] %>;
+  background-color:<%= "#" + bcol[3] %>;
 }
 #que,#eva,#acho{
   font-size: 1.5rem;
@@ -39,10 +50,12 @@ span#a3 {
   width: <%= 1.75*16 %>rem;
 }
 #sen{
+  color:<%= "#" + col[0] %>;
+  background-color:<%= "#" + bcol[0] %>;
   text-align:center;
 }
-#sim{
-  text-align:right;
+#ano,#sim{
+  text-align:left;
 }
 .button{
   font-size: 1.5rem;
@@ -50,12 +63,12 @@ span#a3 {
 
 </style>
 <body>
-  <p class="ex">1部：文字の強調[ 1.配色 → 2.文字フォント → 3.装飾 ]</p>
+  <p class="ex">2部：色の組み合わせ[ 1.色相 → 2.明度 → 3.彩度 ]</p>
   <hr>
   <h1>1. <%= textdata[0].item %></h1>
   <hr>
 
-  <form action="/question/1/answer" method="post">
+  <form action="/question/4/answer" method="post">
   <div id="que">
     <p><%= textdata[0].que %></p>
   </div>
@@ -67,14 +80,16 @@ span#a3 {
     <font color="<%= '#' + row.ccode %>">
       <input type="radio" name="choice" id="<%= row.ccode %>" value="<%= row.id %>" onclick="choiceColor(this.id)" <%= c %>><%= row.name %>
     </font>
+    <input type="hidden" name="gb" value="<%= row.gb %>">
     <% } %>
   </div>
   <div id="sen">
-    <p>カラー<span id="phrase">ユニバーサル</span>デザイン</p>
+    <p id="phrase">カラーユニバーサルデザイン</p>
   </div>    
   
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
+    <input type="hidden" name="bcol" value="<%= bcol[0] %>">
     <p><input type="submit" value="評価" class="button"></p>
   </div>
   </form>
@@ -86,10 +101,22 @@ span#a3 {
     <div id="ano">
       ＜別色覚視点＞<br>
       <div id="sim">
-        通常：カラー<span id="phrase">ユニバーサル</span>デザイン
-        P型：カラー<span id="a1">ユニバーサル</span>デザイン<br>
-        D型：カラー<span id="a2">ユニバーサル</span>デザイン<br>
-        S型：カラー<span id="a3">ユニバーサル</span>デザイン
+        通常：
+        <div class="a0">
+          カラーユニバーサルデザイン<br>
+        </div>
+        P型：
+        <div class="a1">
+          カラーユニバーサルデザイン<br>
+        </div>
+        D型：
+        <div class="a2">
+          カラーユニバーサルデザイン<br>
+        </div>
+        S型：
+        <div class="a3">
+          カラーユニバーサルデザイン<br>
+        </div>
       </div>
     </div>
     <div id="eva">

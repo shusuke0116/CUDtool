@@ -23,6 +23,9 @@ function choiceClearBold() {
 }
 </script>
 <style type="text/css">
+p.ex{
+  font-size: 1.5rem;
+}
 span#phrase1,#phrase2{
   color:<%= "#" + col[0] %>;
 }
@@ -35,7 +38,7 @@ span#phrase2 {
 span.acol{
   color:<%= "#" + col[1] %>;
 }
-#que,#eva{
+#que,#eva,#back{
   font-size: 1.5rem;
 }
 #cho{
@@ -54,6 +57,8 @@ span.acol{
 
 </style>
 <body>
+  <p class="ex">1部：文字の強調[ 1.配色 → <a href="<%='/question/2/' + col[0] %>">2.文字フォント</a> → 3.装飾 ]</p>
+  <hr>
   <h1>3. <%= textdata[0].item %></h1>
   <hr>
 
@@ -99,11 +104,10 @@ span.acol{
           <p><%= textdata[0].good %></p>  
           <p><%= textdata[0].adv %></p>
           <hr>
-          <p><a href="/">top page</a></p>
+          <p><a href="/">top page</a>　　<a href="/question/4">2部：色の組み合わせ</a></p>
         <% } %>
       </div>
     </div>
   <% } %>
-
 </body>
 </html>
