@@ -1,10 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
-let sql = "select name,ccode,pcode,dcode,scode"
-    + " from color" 
-    + " where ccode = 'FF2C01'"
-    + ";";
+let sql = "select ccode,pcode,dcode,scode from color where ccode = 'FF0000';";
 
 db.serialize(() => {
   db.all(sql, (error, row) => {

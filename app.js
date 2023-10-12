@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
 app.set('view engine', 'ejs');
+//app.use('/public', express.static(__dirname + "/public"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
@@ -375,7 +376,7 @@ app.post("/question/4/answer", (req, res) => {
     + " from color" 
     + " where ccode = '" + req.body.bcol + "'"
     + ";";
-  
+
   db.serialize( () => {
     db.all(sqld, (error, chob) => {
       if( error ) {

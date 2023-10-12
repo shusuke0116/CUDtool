@@ -16,6 +16,7 @@ p.ex{
 }
 p#phrase{
   color:<%= "#" + col[0] %>;
+  font-weight: bold;
 }
 .a0,.a1,.a2,.a3{
   font-weight: bold;
@@ -71,6 +72,11 @@ p#phrase{
   <form action="/question/4/answer" method="post">
   <div id="que">
     <p><%= textdata[0].que %></p>
+    <img src="images/sikisou.png" alt="色相">
+    <details>
+      <summary>色相とは</summary>
+      <p>図のように赤、緑、青などの色味の種類のことです。色覚異常では、色相で別となっている２つの色の区別がつかない場合があります。</p>
+    </details>
   </div>
   <div id="cho">
     <% let c; 
@@ -128,7 +134,7 @@ p#phrase{
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
         <hr>
-        <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
+        <p><a href="<%= '/question/5/' + col[0] %>">次の項目へ</a></p>
       <% } %>
     </div>
   <% } %>
