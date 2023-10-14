@@ -64,18 +64,17 @@ p#phrase{
 
 </style>
 <body>
-  <p class="ex">2部：色の組み合わせ[ 1.色相 → 2.明度 → 3.彩度 ]</p>
+  <p class="ex">2部：色の組み合わせ[ <a href="/question/4/FF0000">1.色相</a> → 2.明度 → 3.彩度 ]</p>
   <hr>
-  <h1>1. <%= textdata[0].item %></h1>
+  <h1>2. <%= textdata[0].item %></h1>
   <hr>
 
-  <form action="/question/4/answer" method="post">
+  <form action="/question/5/answer" method="post">
   <div id="que">
     <p><%= textdata[0].que %></p>
-    <img src="images/sikisou.png" alt="色相">
     <details>
-      <summary>色相とは</summary>
-      <p>図のように赤、緑、青などの色味の種類のことです。色覚異常では、色相で別となっている２つの色の区別がつかない場合があります。</p>
+      <summary>明度とは</summary>
+      <p>色の明るさのことです。図のように、明度が高いほど白に近づき、低いほど黒に近くなります。明度を意識することで、色覚によらず見やすいデザインを行うことができます。</p>
     </details>
   </div>
   <div id="cho">
@@ -92,7 +91,7 @@ p#phrase{
   <div id="sen">
     <p id="phrase">カラーユニバーサルデザイン</p>
   </div>    
-  
+
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
     <input type="hidden" name="bcol" value="<%= bcol[0] %>">
@@ -135,7 +134,7 @@ p#phrase{
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
         <hr>
-        <p><a href="<%= '/question/5/111111' %>">次の項目へ</a></p>
+        <p><a href="<%= '/question/6/FF7F82' %>">次の項目へ</a></p>
       <% } %>
     </div>
   <% } %>

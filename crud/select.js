@@ -1,7 +1,9 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test.db');
 
-let sql = "select ccode,pcode,dcode,scode from color where ccode = 'FF0000';";
+let sql = "select gb from eva" 
++ " where (cola = 3 and colb = 2) or (cola = 2 and colb = 3)"
++ ";";
 
 db.serialize(() => {
   db.all(sql, (error, row) => {
