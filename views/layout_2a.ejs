@@ -43,6 +43,7 @@ p#phrase{
 }
 #cho{
   font-size: 1.75rem;
+  font-weight: bold;
 }
 #sen,#ano{
   border: 2px solid;
@@ -72,10 +73,10 @@ p#phrase{
   <form action="/question/4/answer" method="post">
   <div id="que">
     <p><%= textdata[0].que %></p>
-    <img src="images/sikisou.png" alt="色相">
     <details>
       <summary>色相とは</summary>
-      <p>図のように赤、緑、青などの色味の種類のことです。色覚異常では、色相で別となっている２つの色の区別がつかない場合があります。</p>
+      <img src="/public/images/sikisou_n.png" alt="色相:通常色覚">
+      <p>図のような赤、緑、青などの色味の種類のことです。色覚異常では、色相で別となっている２つの色の区別がつかない場合があります。</p>
     </details>
   </div>
   <div id="cho">
@@ -127,6 +128,7 @@ p#phrase{
       </div>
     </div>
     <div id="eva">
+      <img src="/public/images/sikisou_ano.png" alt="色相:複数色覚">
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>
@@ -135,7 +137,7 @@ p#phrase{
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
         <hr>
-        <p><a href="<%= '/question/5/111111' %>">次の項目へ</a></p>
+        <p><a href="<%= '/question/5/31FC31' %>">次の項目へ</a></p>
       <% } %>
     </div>
   <% } %>

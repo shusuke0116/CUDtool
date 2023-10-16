@@ -43,6 +43,7 @@ p#phrase{
 }
 #cho{
   font-size: 1.75rem;
+  font-weight: bold;
 }
 #sen,#ano{
   border: 2px solid;
@@ -64,7 +65,7 @@ p#phrase{
 
 </style>
 <body>
-  <p class="ex">2部：色の組み合わせ[ 1.色相 → <a href="/question/4/111111">2.明度</a> → 3.彩度 ]</p>
+  <p class="ex">2部：色の組み合わせ[ 1.色相 → <a href="/question/5/31FC31">2.明度</a> → 3.彩度 ]</p>
   <hr>
   <h1>3. <%= textdata[0].item %></h1>
   <hr>
@@ -74,6 +75,7 @@ p#phrase{
     <p><%= textdata[0].que %></p>
     <details>
       <summary>彩度とは</summary>
+      <img src="/public/images/saido_n.png" alt="彩度">
       <p>色の鮮やかさのことです。図のように、彩度が高いほど明瞭な原色に近づき、低いほど無彩色（白・黒・灰色）に近きます。彩度の組み合わせによっては色の判別が困難になるため、注意が必要です。</p>
     </details>
   </div>
@@ -126,6 +128,7 @@ p#phrase{
       </div>
     </div>
     <div id="eva">
+      <img src="/public/images/saido_ano.png" alt="彩度：選択肢">
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>
