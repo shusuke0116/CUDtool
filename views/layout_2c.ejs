@@ -2,72 +2,65 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
   <title>CUD学習ツール</title>
 </head>
-<script>
-function choiceColor(code) {
-  const phrase = document.querySelector("#phrase");
-  phrase.style.color = "#" + code;
-}
-</script>
 <style type="text/css">
-p.ex{
-  font-size: 1.5rem;
-}
-p#phrase{
-  color:<%= "#" + col[0] %>;
-  font-weight: bold;
-}
-.a0,.a1,.a2,.a3{
-  font-weight: bold;
-  text-align:center;
-}
-.a0{
-  color:<%= "#" + col[0] %>;
-  background-color:<%= "#" + bcol[0] %>;
-}
-.a1 {
-  color:<%= "#" + col[1] %>;
-  background-color:<%= "#" + bcol[1] %>;
-}
-.a2 {
-  color:<%= "#" + col[2] %>;
-  background-color:<%= "#" + bcol[2] %>;
-}
-.a3 {
-  color:<%= "#" + col[3] %>;
-  background-color:<%= "#" + bcol[3] %>;
-}
-#que,#eva,#acho{
-  font-size: 1.5rem;
-}
-#cho{
-  font-size: 1.75rem;
-  font-weight: bold;
-}
-#sen,#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-size: 1.75rem;
-  width: <%= 1.75*16 %>rem;
-}
-#sen{
-  color:<%= "#" + col[0] %>;
-  background-color:<%= "#" + bcol[0] %>;
-  text-align:center;
-}
-#ano,#sim{
-  text-align:left;
-}
-.button{
-  font-size: 1.5rem;
-}
+  p#phrase{
+    color:<%= "#" + col[0] %>;
+    font-weight: bold;
+  }
+  .a0,.a1,.a2,.a3{
+    font-weight: bold;
+    text-align:center;
+  }
+  .a0{
+    color:<%= "#" + col[0] %>;
+    background-color:<%= "#" + bcol[0] %>;
+  }
+  .a1 {
+    color:<%= "#" + col[1] %>;
+    background-color:<%= "#" + bcol[1] %>;
+  }
+  .a2 {
+    color:<%= "#" + col[2] %>;
+    background-color:<%= "#" + bcol[2] %>;
+  }
+  .a3 {
+    color:<%= "#" + col[3] %>;
+    background-color:<%= "#" + bcol[3] %>;
+  }
+  body{
+    font-size: 1.5rem;
+  }
+  #cho,#sen,#ano{
+    font-size: 2rem;
+  }
+  #cho{
+    font-weight: bold;
+  }
+  #sen,#ano{
+    border: 2px solid;
+    border-color:#c8c8c8;
+    width: <%= 2*16 %>rem;
+  }
+  #sen{
+    color:<%= "#" + col[0] %>;
+    background-color:<%= "#" + bcol[0] %>;
+    text-align:center;
+  }
+  #ano,#sim{
+    text-align:left;
+  }
+  .button{
+    font-size: 1.5rem;
+  }
 
 </style>
 <body>
-  <p class="ex">2部：色の組み合わせ[ 1.色相 → <a href="/question/5/31FC31">2.明度</a> → 3.彩度 ]</p>
+  <p>2部：色の組み合わせ[ 1.色相 → <a href="/question/5/31FC31">2.明度</a> → 3.彩度 ]</p>
   <hr>
-  <h1>3. <%= textdata[0].item %></h1>
+  <h2>3. <%= textdata[0].item %></h2>
   <hr>
 
   <form action="/question/6/answer" method="post">
@@ -75,7 +68,7 @@ p#phrase{
     <p><%= textdata[0].que %></p>
     <details>
       <summary>彩度とは</summary>
-      <img src="/public/images/saido_n.png" alt="彩度">
+      <img src="/public/img/saido_n.png" alt="彩度">
       <p>色の鮮やかさのことです。図のように、彩度が高いほど明瞭な原色に近づき、低いほど無彩色（白・黒・灰色）に近きます。彩度の組み合わせによっては色の判別が困難になるため、注意が必要です。</p>
     </details>
   </div>
@@ -128,7 +121,7 @@ p#phrase{
       </div>
     </div>
     <div id="eva">
-      <img src="/public/images/saido_ano.png" alt="彩度：選択肢">
+      <img src="/public/img/saido_ano.png" alt="彩度：選択肢">
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>

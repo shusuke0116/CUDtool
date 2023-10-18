@@ -2,65 +2,42 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
   <title>CUD学習ツール</title>
 </head>
-<script>
-function choiceLine() {
-  const phrase = document.querySelector("#phrase1");
-  phrase.style.textDecoration = "underline";
-}
-function choiceBold() {
-  const phrase = document.querySelector("#phrase2");
-  phrase.style.fontWeight = "bold";
-}
-function choiceClearLine() {
-  const phrase = document.querySelector("#phrase1");
-  phrase.style.textDecoration = "none";
-}
-function choiceClearBold() {
-  const phrase = document.querySelector("#phrase2");
-  phrase.style.fontWeight = "normal";
-}
-</script>
 <style type="text/css">
-p.ex{
-  font-size: 1.5rem;
-}
-span#phrase1,#phrase2{
-  color:<%= "#" + col[0] %>;
-}
-span#phrase1 {
-  text-decoration:<%= li %>
-}
-span#phrase2 {
-  font-weight:<%= bo %>
-}
-span.acol{
-  color:<%= "#" + col[1] %>;
-}
-#que,#eva,#back{
-  font-size: 1.5rem;
-}
-#cho{
-  font-size: 1.75rem;
-  font-weight: bold;
-}
-#sen,#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-family:sans-serif;
-  font-size: 1.75rem;
-  width: <%= 1.75*16 %>rem;
-}
-.button{
-  font-size: 1.5rem;
-}
-
+  span#phrase1,#phrase2{
+    color:<%= "#" + col[0] %>;
+  }
+  span#a1 {
+    text-decoration:<%= li %>
+  }
+  span#a2 {
+    font-weight:<%= bo %>
+  }
+  span.acol{
+    color:<%= "#" + col[1] %>;
+  }
+  body{
+    font-size: 1.5rem;
+  }
+  #cho,#sen,#ano{
+    font-size: 2rem;
+  }
+  #sen,#ano{
+    border: 2px solid;
+    border-color:#c8c8c8;
+    font-family:sans-serif;
+    width: <%= 2*16 %>rem;
+  }
+  .button{
+    font-size: 1.5rem;
+  }
 </style>
 <body>
-  <p class="ex">1部：文字の強調[ 1.配色 → <a href="<%='/question/2/' + col[0] %>">2.文字フォント</a> → 3.装飾 ]</p>
+  <p>1部：文字の強調[ 1.配色 → <a href="<%='/question/2/' + col[0] %>">2.文字フォント</a> → 3.装飾 ]</p>
   <hr>
-  <h1>3. <%= textdata[0].item %></h1>
+  <h2>3. <%= textdata[0].item %></h2>
   <hr>
 
   <form action="/question/3/answer" method="post">
@@ -99,8 +76,8 @@ span.acol{
           <div id=ano>
             ＜装飾なしとの比較（P型）＞<br>
             カラー<span class="acol">ユニバーサル</span>デザイン<br>
-            カラー<span id="phrase1" class="acol">ユニバーサル</span>デザイン<br>
-            カラー<span id="phrase2" class="acol">ユニバーサル</span>デザイン
+            カラー<span id="a1" class="acol">ユニバーサル</span>デザイン<br>
+            カラー<span id="a2" class="acol">ユニバーサル</span>デザイン
           </div>
           <p><%= textdata[0].good %></p>  
           <p><%= textdata[0].adv %></p>

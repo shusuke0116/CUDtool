@@ -2,60 +2,50 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
   <title>CUD学習ツール</title>
 </head>
-<script>
-function choiceFont(font) {
-  const phrase = document.querySelector("#phrase");
-  phrase.style.fontFamily = font;
-}
-</script>
 <style type="text/css">
-p.ex{
-  font-size: 1.5rem;
-}
-span#col{
-  color:<%= '#' + col[0] %>
-}
-span.acol{
-  color:<%= '#' + col[1] %>
-}
-span#phrase {
-  font-family:<%= fon %>;
-}
-span#gos{
-  font-family:sans-serif;
-}
-span#min{
-  font-family:serif;
-}
-#que,#eva,#back{
-  font-size: 1.5rem;
-}
-#cho{
-  font-size: 1.75rem;
-  font-weight: bold;
-}
-#sen,#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-size: 1.75rem;
-  width:  <%= 1.75*19 %>rem;
-}
-#sen{
-  text-align:center;
-}
-#sim{
-  text-align:right;
-}
-.button{
-  font-size: 1.5rem;
-}
+  span#col{
+    color:<%= '#' + col[0] %>
+  }
+  span.acol{
+    color:<%= '#' + col[1] %>
+  }
+  span#phrase {
+    font-family:<%= fon %>;
+  }
+  span#gos{
+    font-family:sans-serif;
+  }
+  span#min{
+    font-family:serif;
+  }
+  body{
+    font-size: 1.5rem;
+  }
+  #cho,#sen,#ano{
+    font-size: 2rem;
+  }
+  #sen,#ano{
+    border: 2px solid;
+    border-color:#c8c8c8;
+    width:  <%= 2*19 %>rem;
+  }
+  #sen{
+    text-align:center;
+  }
+  #sim{
+    text-align:right;
+  }
+  .button{
+    font-size: 1.5rem;
+  }
 </style>
 <body>
-  <p class="ex">1部：文字の強調[ <a href="/question/1">1.配色</a> → 2.文字フォント → 3.装飾 ]</p>
+  <p>1部：文字の強調[ <a href="/question/1">1.配色</a> → 2.文字フォント → 3.装飾 ]</p>
   <hr>
-  <h1>2. <%= textdata[0].item %></h1>
+  <h2>2. <%= textdata[0].item %></h2>
   <hr>
 
   <form action="/question/2/answer" method="post">

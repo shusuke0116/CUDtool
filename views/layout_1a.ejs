@@ -2,58 +2,50 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
   <title>CUD学習ツール</title>
 </head>
-<script>
-function choiceColor(code) {
-  const phrase = document.querySelector("#phrase");
-  phrase.style.color = "#" + code;
-}
-</script>
 <style type="text/css">
-p.ex{
-  font-size: 1.5rem;
-}
-span#phrase {
-  color:<%= "#" + col[0] %>;
-}
-span#a1 {
-  color:<%= "#" + col[1] %>;
-}
-span#a2 {
-  color:<%= "#" + col[2] %>;
-}
-span#a3 {
-  color:<%= "#" + col[3] %>;
-}
-#que,#eva,#acho{
-  font-size: 1.5rem;
-}
-#cho{
-  font-size: 1.75rem;
-  font-weight: bold;
-}
-#sen,#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-size: 1.75rem;
-  width: <%= 1.75*16 %>rem;
-}
-#sen{
-  text-align:center;
-}
-#sim{
-  text-align:right;
-}
-.button{
-  font-size: 1.5rem;
-}
-
+  span#phrase {
+    color:<%= "#" + col[0] %>;
+  }
+  span#a1 {
+    color:<%= "#" + col[1] %>;
+  }
+  span#a2 {
+    color:<%= "#" + col[2] %>;
+  }
+  span#a3 {
+    color:<%= "#" + col[3] %>;
+  }
+  body{
+    font-size: 1.5rem;
+  }
+  #cho,#sen,#ano{
+    font-size: 2rem;
+  }
+  #cho{
+    font-weight: bold;
+  }
+  #sen,#ano{
+    border: 2px solid;
+    border-color:#c8c8c8;
+    width: <%= 2*16 %>rem;
+  }
+  #sen{
+    text-align:center;
+  }
+  #sim{
+    text-align:right;
+  }
+  .button{
+    font-size: 1.5rem;
+  }
 </style>
 <body>
-  <p class="ex">1部：文字の強調[ 1.配色 → 2.文字フォント → 3.装飾 ]</p>
+  <p>1部：文字の強調[ 1.配色 → 2.文字フォント → 3.装飾 ]</p>
   <hr>
-  <h1>1. <%= textdata[0].item %></h1>
+  <h2>1. <%= textdata[0].item %></h2>
   <hr>
 
   <form action="/question/1/answer" method="post">

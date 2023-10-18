@@ -2,72 +2,65 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
   <title>CUD学習ツール</title>
 </head>
-<script>
-function choiceColor(code) {
-  const phrase = document.querySelector("#phrase");
-  phrase.style.color = "#" + code;
-}
-</script>
 <style type="text/css">
-p.ex{
-  font-size: 1.5rem;
-}
-p#phrase{
-  color:<%= "#" + col[0] %>;
-  font-weight: bold;
-}
-.a0,.a1,.a2,.a3{
-  font-weight: bold;
-  text-align:center;
-}
-.a0{
-  color:<%= "#" + col[0] %>;
-  background-color:<%= "#" + bcol[0] %>;
-}
-.a1 {
-  color:<%= "#" + col[1] %>;
-  background-color:<%= "#" + bcol[1] %>;
-}
-.a2 {
-  color:<%= "#" + col[2] %>;
-  background-color:<%= "#" + bcol[2] %>;
-}
-.a3 {
-  color:<%= "#" + col[3] %>;
-  background-color:<%= "#" + bcol[3] %>;
-}
-#que,#eva,#acho{
-  font-size: 1.5rem;
-}
-#cho{
-  font-size: 1.75rem;
-  font-weight: bold;
-}
-#sen,#ano{
-  border: 2px solid;
-  border-color:#c8c8c8;
-  font-size: 1.75rem;
-  width: <%= 1.75*16 %>rem;
-}
-#sen{
-  color:<%= "#" + col[0] %>;
-  background-color:<%= "#" + bcol[0] %>;
-  text-align:center;
-}
-#ano,#sim{
-  text-align:left;
-}
-.button{
-  font-size: 1.5rem;
-}
+  p#phrase{
+    color:<%= "#" + col[0] %>;
+    font-weight: bold;
+  }
+  .a0,.a1,.a2,.a3{
+    font-weight: bold;
+    text-align:center;
+  }
+  .a0{
+    color:<%= "#" + col[0] %>;
+    background-color:<%= "#" + bcol[0] %>;
+  }
+  .a1 {
+    color:<%= "#" + col[1] %>;
+    background-color:<%= "#" + bcol[1] %>;
+  }
+  .a2 {
+    color:<%= "#" + col[2] %>;
+    background-color:<%= "#" + bcol[2] %>;
+  }
+  .a3 {
+    color:<%= "#" + col[3] %>;
+    background-color:<%= "#" + bcol[3] %>;
+  }
+  body{
+    font-size: 1.5rem;
+  }
+  #cho,#sen,#ano{
+    font-size: 2rem;
+  }
+  #cho{
+    font-weight: bold;
+  }
+  #sen,#ano{
+    border: 2px solid;
+    border-color:#c8c8c8;
+    width: <%= 2*16 %>rem;
+  }
+  #sen{
+    color:<%= "#" + col[0] %>;
+    background-color:<%= "#" + bcol[0] %>;
+    text-align:center;
+  }
+  #ano,#sim{
+    text-align:left;
+  }
+  .button{
+    font-size: 1.5rem;
+  }
 
 </style>
 <body>
-  <p class="ex">2部：色の組み合わせ[ 1.色相 → 2.明度 → 3.彩度 ]</p>
+  <p>2部：色の組み合わせ[ 1.色相 → 2.明度 → 3.彩度 ]</p>
   <hr>
-  <h1>1. <%= textdata[0].item %></h1>
+  <h2>1. <%= textdata[0].item %></h2>
   <hr>
 
   <form action="/question/4/answer" method="post">
@@ -75,8 +68,8 @@ p#phrase{
     <p><%= textdata[0].que %></p>
     <details>
       <summary>色相とは</summary>
-      <img src="/public/images/sikisou_n.png" alt="色相:通常色覚">
-      <p>図のような赤、緑、青などの色味の種類のことです。色覚異常では、色相で別となっている２つの色の区別がつかない場合があります。</p>
+      <img src="/public/img/sikisou_n.png" alt="色相:通常色覚">
+      <p>図のような赤、緑、青などの色味の種類のことです。色覚異常では、色相で別となっている２つの色の区別がつきづらい場合があります。</p>
     </details>
   </div>
   <div id="cho">
@@ -92,12 +85,12 @@ p#phrase{
   </div>
   <div id="sen">
     <p id="phrase">カラーユニバーサルデザイン</p>
-  </div>    
+  </div>  
   
   <div id="button">
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
     <input type="hidden" name="bcol" value="<%= bcol[0] %>">
-    <input type="hidden" name="backid" value="<%= backid %>">
+    <input type="hidden" name="backid" value="<%= backid[0] %>">
     <p><input type="submit" value="評価" class="button"></p>
   </div>
   </form>
@@ -128,7 +121,7 @@ p#phrase{
       </div>
     </div>
     <div id="eva">
-      <img src="/public/images/sikisou_ano.png" alt="色相:複数色覚">
+      <img src="/public/img/sikisou_ano.png" alt="色相:複数色覚">
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>

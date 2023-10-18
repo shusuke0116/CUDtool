@@ -308,7 +308,7 @@ app.get("/question/4/:bcol", (req, res) => {
   let textdata;
   let col = new Array(3);
   let bcol =  [req.params.bcol,""];
-  let backid;
+  let backid = new Array(2);;
 
   // テキスト
   let sql = "select id,item,que" 
@@ -328,7 +328,7 @@ app.get("/question/4/:bcol", (req, res) => {
 
   //背景色のid
 
-  let sqla = "select id" 
+  let sqla = "select id,name" 
     + " from color"
     + " where ccode = '" + bcol[0] + "'"
     + ";";
@@ -338,7 +338,8 @@ app.get("/question/4/:bcol", (req, res) => {
       if( error ) {
         res.render('show', {mes:"エラーです"});
       }
-      backid = back[0].id;
+      backid[0] = back[0].id;
+      backid[1] = back[0].name;
     })
   })
   //　選択肢
