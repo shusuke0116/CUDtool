@@ -1,0 +1,76 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
+  <script src="/public/js/3a.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+  <title>CUD学習ツール</title>
+</head>
+<body>
+  <p>3部：グラフ[ 1.配色 → 2.色以外での区別 → 3.項目名の書き方 ]</p>
+  <hr>
+  <h2>1. 配色</h2>
+  <hr>
+  <div id="que">
+    <p>que</p>
+  </div>
+  <div id="cho">
+    <form id="sen0">
+      <p>線１
+      <% let d; 
+        for (let row of choices){ 
+          if(row.ccode == col[0]) d = "checked";
+          else d = ""; %>
+      <font color="<%= '#' + row.ccode %>">
+        <input type="radio" name="sen0" value="<%= row.ccode %>" <%= d %>><%= row.name %>
+      </font>
+      <% } %>
+      </p>
+    </form>
+    <form id="sen1">
+      <p>線２
+      <% let a; 
+        for (let row of choices){ 
+          if(row.ccode == col[1]) a = "checked";
+          else a = ""; %>
+      <font color="<%= '#' + row.ccode %>">
+        <input type="radio" name="sen1" value="<%= row.ccode %>" <%= a %>><%= row.name %>
+      </font>
+      <% } %>
+      </p>
+    </form>
+    <form id="sen2">
+      <p>線３
+      <% let b; 
+        for (let row of choices){ 
+          if(row.ccode == col[2]) b = "checked";
+          else b = ""; %>
+      <font color="<%= '#' + row.ccode %>">
+        <input type="radio" name="sen2" value="<%= row.ccode %>" <%= b %>><%= row.name %>
+      </font>
+      <% } %>
+      </p>
+    </form>
+    <form id="sen3">
+      <p>線４
+      <% let c; 
+        for (let row of choices){ 
+          if(row.ccode == col[3]) c = "checked";
+          else c = ""; %>
+      <font color="<%= '#' + row.ccode %>">
+        <input type="radio" name="sen3" value="<%= row.ccode %>" <%= c %>><%= row.name %>
+      </font>
+      <% } %>
+    </form>
+  </div>
+  <div id="graph">
+    <canvas id="graph1" width="500" height="300">
+  </div>
+  <form action="/question/7/answer" method="post">
+  <div id="button">
+    <p><input type="submit" value="評価" class="button"></p>
+  </div>
+  </form>
+</body>
+</html>

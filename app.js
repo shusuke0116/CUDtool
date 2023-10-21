@@ -763,6 +763,44 @@ app.post("/question/6/answer", (req, res) => {
   })
 });
 
+app.get("/question/7", (req, res) => {
+  let textdata;
+  let col = ["FF0000","008000","0000FF","FF0000"];
+
+  // テキスト
+  let sql = "select id,item,que" 
+    + " from text"
+    + " where text.id = 7"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sql, (error, data) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(data);
+      textdata = data;
+    })
+  })
+
+  //　選択肢
+  let sqlb = "select color.id,color.name,ccode" 
+    + " from tc inner join color" 
+    + " on (color.id=tc.c_id)"
+    + " where t_id = 7"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sqlb, (error, choices) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(choices); 
+      col[0] = choices[0].ccode;
+      res.render('layout_3a', {e:0,textdata:textdata,choices:choices,col:col});
+    })
+  })
+});
 
 app.use(function(req, res, next) {
   res.status(404).send('ページが見つかりません');
