@@ -765,8 +765,8 @@ app.post("/question/6/answer", (req, res) => {
 
 app.get("/question/7", (req, res) => {
   let textdata;
-  let col = ["FF0000","008000","0000FF","FF0000"];
-
+  let col = [["FF0000",""],["008000",""],["0000FF",""],["FF0000",""]];
+  console.log(col[0][0]);
   // テキスト
   let sql = "select id,item,que" 
     + " from text"
@@ -796,8 +796,87 @@ app.get("/question/7", (req, res) => {
         res.render('show', {mes:"エラーです"});
       }
       //console.log(choices); 
-      col[0] = choices[0].ccode;
       res.render('layout_3a', {e:0,textdata:textdata,choices:choices,col:col});
+    })
+  })
+});
+
+app.post("/question/7/answer", (req, res) => {
+
+  let textdata;
+  let gb;
+  let col = [[],[],[],[]];
+
+  // 選択された色のカラーコード
+  let s = "select name,ccode,pcode,dcode,scode"
+    + " from color" 
+    + " where ccode = '";
+
+  let sqls = [s+req.body.s0+"';",s+req.body.s1+"';",s+req.body.s2+"';",s+req.body.s3+"';",]
+
+  let i = 0;
+  for(let sql of sqls){
+    db.serialize( () => {
+      db.all(sql, (error, data) => {
+        if( error ) {
+          return res.render('show', {mes:"エラーです"});
+        }
+        col[i][0] = data[0].ccode;
+        col[i][1] = data[0].pcode;
+        col[i][2] = data[0].dcode;
+        col[i][3] = data[0].scode;
+        col[i][4] = data[0].name;
+        i++;
+        //console.log(col);
+      })
+    })
+  }
+  /*
+  //選択された色の評価
+  let sqla = "select gb"
+    + " from eva" 
+    + " where (cola = " + backid + " and colb = " + req.body.choice + ")" 
+    + " or (cola = " + req.body.choice + " and colb = " + backid + ")"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sqla, (error, eva) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      gb = eva[0].gb;
+    })
+  })
+*/
+  // テキスト
+  let sqlb = "select *"
+    + " from text"
+    + " where text.id = 7"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sqlb, (error, data) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(data);  
+      textdata = data;
+    })
+  })
+
+  //　選択肢
+  let sqlc = "select color.id,color.name,ccode" 
+    + " from tc inner join color" 
+    + " on (color.id=tc.c_id)"
+    + " where t_id = 7"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sqlc, (error, choices) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      res.render('layout_3a', {e:1,textdata:textdata,choices:choices,col:col,gb:0});
     })
   })
 });
