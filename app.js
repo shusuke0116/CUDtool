@@ -765,8 +765,7 @@ app.post("/question/6/answer", (req, res) => {
 
 app.get("/question/7", (req, res) => {
   let textdata;
-  let col = [["FF0000",""],["008000",""],["0000FF",""],["FF0000",""]];
-  console.log(col[0][0]);
+  let col = [["FF0000",""],["008000",""],["0000FF",""]];
   // テキスト
   let sql = "select id,item,que" 
     + " from text"
@@ -804,15 +803,15 @@ app.get("/question/7", (req, res) => {
 app.post("/question/7/answer", (req, res) => {
 
   let textdata;
-  let gb;
-  let col = [[],[],[],[]];
-
+  let gb = 1;
+  let id = [req.body.s0,req.body.s1,req.body.s2];
+  let col = [[],[],[]];
   // 選択された色のカラーコード
   let s = "select name,ccode,pcode,dcode,scode"
     + " from color" 
-    + " where ccode = '";
+    + " where id = ";
 
-  let sqls = [s+req.body.s0+"';",s+req.body.s1+"';",s+req.body.s2+"';",s+req.body.s3+"';",]
+  let sqls = [ s+id[0]+";" , s+id[1]+";" , s+id[2]+";" ];
 
   let i = 0;
   for(let sql of sqls){
@@ -831,23 +830,33 @@ app.post("/question/7/answer", (req, res) => {
       })
     })
   }
-  /*
+  
   //選択された色の評価
-  let sqla = "select gb"
-    + " from eva" 
-    + " where (cola = " + backid + " and colb = " + req.body.choice + ")" 
-    + " or (cola = " + req.body.choice + " and colb = " + backid + ")"
-    + ";";
-
-  db.serialize( () => {
-    db.all(sqla, (error, eva) => {
-      if( error ) {
-        res.render('show', {mes:"エラーです"});
-      }
-      gb = eva[0].gb;
+  var sqla = new Array();
+  var a;
+  for(let j=0;j<2;j++){
+    for(let k=j+1;k<3;k++){
+      a = "select gb"
+      + " from eva" 
+      + " where (cola = " + id[j] + " and colb = " + id[k] + ")" 
+      + " or (cola = " + id[k] + " and colb = " + id[j] + ")"
+      + ";";
+      sqla.push(a);
+    }
+  }
+  for(let sql of sqla){
+    db.serialize( () => {
+      db.all(sql, (error, eva) => {
+        if( error ) {
+          return res.render('show', {mes:"エラーです"});
+        }
+        if(eva[0].gb == 0){
+          gb = 0;
+        }
+      })
     })
-  })
-*/
+  }
+  
   // テキスト
   let sqlb = "select *"
     + " from text"
@@ -876,10 +885,12 @@ app.post("/question/7/answer", (req, res) => {
       if( error ) {
         res.render('show', {mes:"エラーです"});
       }
-      res.render('layout_3a', {e:1,textdata:textdata,choices:choices,col:col,gb:0});
+      res.render('layout_3a', {e:1,textdata:textdata,choices:choices,col:col,gb:gb});
     })
   })
 });
+
+
 
 app.use(function(req, res, next) {
   res.status(404).send('ページが見つかりません');
