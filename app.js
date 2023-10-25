@@ -890,7 +890,83 @@ app.post("/question/7/answer", (req, res) => {
   })
 });
 
+app.get("/question/8/:col", (req, res) => {
+  
+  let col = [[req.params.col.substr(0,6),""],[req.params.col.substr(6,6),""],[req.params.col.substr(12,6),""]];
+  let check = [["checked","",""],["checked","",""],["checked","",""]];
+    
+  // テキスト
+  let textdata;
+  let sql = "select id,item,que" 
+    + " from text"
+    + " where text.id = 8"
+    + ";";
 
+  db.serialize( () => {
+    db.all(sql, (error, data) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(data);
+      res.render('layout_3b', {e:0,textdata:data,col:col,check:check,gb:0});
+    })
+  })
+});
+
+app.post("/question/8/answer", (req, res) => {
+  let col = [[req.body.a0s0,""],[req.body.a0s1,""],[req.body.a0s2,""]];
+  let check = [["","",""],["","",""],["","",""]];
+  let s0 = Number(req.body.s0);
+  let s1 = Number(req.body.s1);
+  let s2 = Number(req.body.s2);
+  let gb = 1;
+  
+  //チェックされた場所
+  check[0][s0] = "checked";
+  check[1][s1] = "checked";
+  check[2][s2] = "checked";
+
+  // 評価
+  if(s0 == s1) gb = 0;
+  if(s0 == s2) gb = 0;
+  if(s1 == s2) gb = 0;
+
+  //カラーコード
+  let s = "select pcode"
+    + " from color" 
+    + " where ccode = '";
+
+  let sqls = [ s+req.body.a0s0+"';" , s+req.body.a0s1+"';" , s+req.body.a0s2+"';" ];
+  let i = 0;
+  for(let sql of sqls){
+    db.serialize( () => {
+      db.all(sql, (error, data) => {
+        if( error ) {
+          return res.render('show', {mes:"エラーです"});
+        }
+        col[i][1] = data[0].pcode;
+        i++;
+        //console.log(col);
+      })
+    })
+  }
+  
+  // テキスト
+  let sql = "select id,item,que" 
+    + " from text"
+    + " where text.id = 8"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sql, (error, data) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(data);
+      res.render('layout_3b', {e:1,textdata:data,col:col,check:check,gb:gb});
+    })
+  })
+});
 
 app.use(function(req, res, next) {
   res.status(404).send('ページが見つかりません');

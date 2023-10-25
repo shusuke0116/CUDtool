@@ -1,0 +1,95 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="/public/js/func.js"></script>
+  <script src="/public/js/3b.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+  <title>CUD学習ツール</title>
+</head>
+<style type="text/css">
+  body{
+    font-size: 1.5rem;
+  }
+  #cho{
+    font-size: 1.75rem;
+  }
+  canvas.graph{
+    width:500px;
+  }
+  #ano{
+    border: 2px solid;
+    border-color:#c8c8c8;
+    width: <%= 2*16 %>rem;
+  }
+  #ano,#sim{
+    font-size: 2rem
+    text-align:left;
+  }
+  .button{
+    font-size: 1.5rem;
+  }
+
+  </style>
+<body>
+  <p>3部：グラフ[ <a href="/question/7">1.配色</a> → 2.色以外での区別 → 3.項目名の書き方 ]</p>
+  <hr>
+  <h2>2. 色以外での区別</h2>
+  <hr>
+  <form action="/question/8/answer" method="post">
+  <div id="que">
+    <p>que</p>
+  </div>
+  <div id="cho">
+    <p>線１：
+      <input type="radio" id="" name="s0" value="0" <%= check[0][0] %>>実線
+      <input type="radio" id="" name="s0" value="1" <%= check[0][1] %>>破線１
+      <input type="radio" id="" name="s0" value="2" <%= check[0][2] %>>破線２
+    <br>線２：
+      <input type="radio" id="" name="s1" value="0" <%= check[1][0] %>>実線
+      <input type="radio" id="" name="s1" value="1" <%= check[1][1] %>>破線１
+      <input type="radio" id="" name="s1" value="2" <%= check[1][2] %>>破線２
+    <br>線３：
+      <input type="radio" id="" name="s2" value="0" <%= check[2][0] %>>実線
+      <input type="radio" id="" name="s2" value="1" <%= check[2][1] %>>破線１
+      <input type="radio" id="" name="s2" value="2" <%= check[2][2] %>>破線２
+    </p>
+  </div>
+  <div id="graph">
+    <canvas id="graph1" class="graph"></canvas>
+    <input type="hidden" name="a0s0" value="<%= col[0][0] %>">
+    <input type="hidden" name="a0s1" value="<%= col[1][0] %>">
+    <input type="hidden" name="a0s2" value="<%= col[2][0] %>">
+  </div>
+  <div id="button">
+    <p><input type="submit" value="評価" class="button"></p>
+  </div>
+  </form>
+
+  <% if(e == 1){ %>
+    <div id="ano">
+      ＜別色覚視点＞<br>
+      <div id="sim">
+        通常：<canvas id="a0" class="graph"></canvas>
+        P型：<canvas id="a1" class="graph"></canvas>
+        <input type="hidden" name="a1s0" value="<%= col[0][1] %>">
+        <input type="hidden" name="a1s1" value="<%= col[1][1] %>">
+        <input type="hidden" name="a1s2" value="<%= col[2][1] %>">
+      </div>
+    </div>
+    <div id="eva">
+      <% if(gb == 0) { %> 
+        <p><%= textdata[0].bad %></p>
+        <p>ポイント：<%= textdata[0].adv %></p>
+        <p>別の選択肢を選んでください</p>
+      <% }else{ %> 
+        <p><%= textdata[0].good %></p>  
+        <p>ポイント：<%= textdata[0].adv %></p>
+        <hr>
+        <p><a href="<%= '/question/8/' %>">次の項目へ</a></p>
+      <% } %>
+    </div>
+  <% } %>
+
+</body>
+</html>
