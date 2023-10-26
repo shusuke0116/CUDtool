@@ -893,10 +893,8 @@ app.post("/question/7/answer", (req, res) => {
 app.get("/question/8/:col", (req, res) => {
   
   let col = [[req.params.col.substr(0,6),""],[req.params.col.substr(6,6),""],[req.params.col.substr(12,6),""]];
-  let check = [["checked","",""],["checked","",""],["checked","",""]];
-    
+  let check = new Array(6).fill(["checked","",""]);
   // テキスト
-  let textdata;
   let sql = "select id,item,que" 
     + " from text"
     + " where text.id = 8"
@@ -915,21 +913,33 @@ app.get("/question/8/:col", (req, res) => {
 
 app.post("/question/8/answer", (req, res) => {
   let col = [[req.body.a0s0,""],[req.body.a0s1,""],[req.body.a0s2,""]];
-  let check = [["","",""],["","",""],["","",""]];
-  let s0 = Number(req.body.s0);
-  let s1 = Number(req.body.s1);
-  let s2 = Number(req.body.s2);
+  let check = [["","",""],["","",""],["","",""],["","",""],["","",""],["","",""]];
+  let c = [req.body.s0c0,req.body.s1c0,req.body.s2c0,req.body.s0c1,req.body.s1c1,req.body.s2c1];
   let gb = 1;
   
   //チェックされた場所
-  check[0][s0] = "checked";
-  check[1][s1] = "checked";
-  check[2][s2] = "checked";
-
-  // 評価
-  if(s0 == s1) gb = 0;
-  if(s0 == s2) gb = 0;
-  if(s1 == s2) gb = 0;
+  for(let i=0;i<6;i++){
+    check[i][c[i]] = "checked";
+  }
+  //console.log(check);
+  //評価（線の種類）
+  for(let i=0;i<3;i++){
+    for(let j=i+1;j<3;j++){
+      if(c[i] == c[j]){
+        gb = 0;
+      }
+      break;
+    }
+  }
+  //評価（ポイントの図形）
+  for(let i=3;i<6;i++){
+    for(let j=i+1;j<6;j++){
+      if(c[i] == c[j]){
+        gb = 0;
+      }
+      break;
+    }
+  }
 
   //カラーコード
   let s = "select pcode"
@@ -952,7 +962,7 @@ app.post("/question/8/answer", (req, res) => {
   }
   
   // テキスト
-  let sql = "select id,item,que" 
+  let sql = "select *" 
     + " from text"
     + " where text.id = 8"
     + ";";

@@ -13,17 +13,19 @@ var options = {
 };
 var labels = ['0', '1', '2', '3','4'];
 var label = ["線１","線２","線３"];
+var psize = 5;
 
 document.addEventListener('DOMContentLoaded', function() {
 
   //メインのグラフ
   var ctx = document.querySelector("#graph1").getContext("2d");
-  var color = new Array(3);
+  var col = new Array(3);
   var dash = new Array(3);
+  var point = new Array(3);
   var d = new Array(3);
   for(let i=0;i<3;i++){
-    color[i] = '#' + document.querySelector("input[name=a0s" + String(i) + "]").value;
-    d[i] = document.querySelector("input[name=s" + String(i) + "]:checked").value;
+    col[i] = '#' + document.querySelector("input[name=a0s" + String(i) + "]").value;
+    d[i] = document.querySelector("input[name=s" + String(i) + "c0]:checked").value;
     if(d[i] == 2){
       dash[i] = [7,3,3,3];
     }
@@ -33,27 +35,34 @@ document.addEventListener('DOMContentLoaded', function() {
     else{
       dash[i] = [0,0];
     }
+    point[i] = document.querySelector("input[name=s" + String(i) + "c1]:checked").id;
   }
   var data = {
     labels: labels,
     datasets: [{
       label: label[0],
       data: datas[0],
-      borderColor:  color[0] ,
-      backgroundColor: color[0] ,
+      borderColor:  col[0] ,
+      backgroundColor: col[0] ,
       borderDash: dash[0],
+      pointStyle: point[0],
+      pointRadius: psize,
     },{
       label: label[1],
       data: datas[1],
-      borderColor: color[1] ,
-      backgroundColor: color[1] ,
+      borderColor: col[1] ,
+      backgroundColor: col[1] ,
       borderDash: dash[1],
+      pointStyle: point[1],
+      pointRadius: psize,
     },{
       label: label[2],
       data: datas[2],
-      borderColor: color[2] ,
-      backgroundColor: color[2] ,
+      borderColor: col[2] ,
+      backgroundColor: col[2] ,
       borderDash: dash[2],
+      pointStyle: point[2],
+      pointRadius: psize,
     }],
   }
   var chart = new Chart(ctx, {
@@ -64,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   //ラジオボタン
   for(let i=0;i<3;i++){
-    for(let element of document.querySelectorAll("input[name=s" + String(i) + "]")) {
+    //線の種類
+    for(let element of document.querySelectorAll("input[name=s" + String(i) + "c0]")) {
       element.addEventListener('change',function(){
         if(this.value == 2){
           dash[i] = [7,3,3,3];
@@ -81,44 +91,24 @@ document.addEventListener('DOMContentLoaded', function() {
         chart.update();
       });
     }
+    
+    //点の種類
+    for(let element of document.querySelectorAll("input[name=s" + String(i) + "c1]")) {
+      element.addEventListener('change',function(){
+        point[i] = this.id;
+        chart.data.datasets[i].pointStyle = point[i];
+        chart.update();
+      });
+    }
   }
 
   //別色覚のグラフ
   var actx;
-  var adata;
-  var acol = new Array(3);
-  var adash = new Array(3);
-  var c = new Array(3);
   for(let i=0;i<2;i++){
-    actx = document.querySelector("#a"+String(i)).getContext("2d");
-    for(let j=0;j<3;j++){
-      acol[j] = '#' + document.querySelector("input[name=a"+String(i)+"s"+String(j)+"]").value
-    }
-    adata = {
-      labels: labels,
-      datasets: [{
-        label: label[0],
-        data: datas[0],
-        borderColor:  acol[0] ,
-        backgroundColor: acol[0] ,
-        borderDash: dash[0],
-      },{
-        label: label[1],
-        data: datas[1],
-        borderColor: acol[1] ,
-        backgroundColor: acol[1] ,
-        borderDash: dash[1],
-      },{
-        label: label[2],
-        data: datas[2],
-        borderColor: acol[2] ,
-        backgroundColor: acol[2] ,
-        borderDash: dash[2],
-      }],
-    }
+    actx = document.querySelector("#a"+String(i)).getContext("2d");   
     var achart = new Chart(actx, {
       type: "line",
-      data: adata,
+      data: data,
       options: options
     });
   }

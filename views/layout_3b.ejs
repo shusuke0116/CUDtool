@@ -41,19 +41,52 @@
     <p>que</p>
   </div>
   <div id="cho">
-    <p>線１：
-      <input type="radio" id="" name="s0" value="0" <%= check[0][0] %>>実線
-      <input type="radio" id="" name="s0" value="1" <%= check[0][1] %>>破線１
-      <input type="radio" id="" name="s0" value="2" <%= check[0][2] %>>破線２
-    <br>線２：
-      <input type="radio" id="" name="s1" value="0" <%= check[1][0] %>>実線
-      <input type="radio" id="" name="s1" value="1" <%= check[1][1] %>>破線１
-      <input type="radio" id="" name="s1" value="2" <%= check[1][2] %>>破線２
-    <br>線３：
-      <input type="radio" id="" name="s2" value="0" <%= check[2][0] %>>実線
-      <input type="radio" id="" name="s2" value="1" <%= check[2][1] %>>破線１
-      <input type="radio" id="" name="s2" value="2" <%= check[2][2] %>>破線２
-    </p>
+    <table border=1>
+      <tr>
+        <th></th>
+        <th>線の種類</th>
+        <th>ポイントの図形</th>
+      </tr>
+      <tr>
+        <td>線１：</td>
+        <td>
+          <input type="radio" name="s0c0" value="0" <%= check[0][0] %>>実線
+          <input type="radio" name="s0c0" value="1" <%= check[0][1] %>>破線１
+          <input type="radio" name="s0c0" value="2" <%= check[0][2] %>>破線２
+        </td>
+        <td>
+          <input type="radio" id="circle" name="s0c1" value="0" <%= check[3][0] %>>丸
+          <input type="radio" id="triangle" name="s0c1" value="1" <%= check[3][1] %>>三角
+          <input type="radio" id="rect" name="s0c1" value="2" <%= check[3][2] %>>四角
+        </td>
+      </tr>
+      <tr>
+        <td>線２：</td>
+        <td>
+          <input type="radio" name="s1c0" value="0" <%= check[1][0] %>>実線
+          <input type="radio" name="s1c0" value="1" <%= check[1][1] %>>破線１
+          <input type="radio" name="s1c0" value="2" <%= check[1][2] %>>破線２
+        </td>
+        <td>
+          <input type="radio" id="circle" name="s1c1" value="0" <%= check[4][0] %>>丸
+          <input type="radio" id="triangle" name="s1c1" value="1" <%= check[4][1] %>>三角
+          <input type="radio" id="rect" name="s1c1" value="2" <%= check[4][2] %>>四角
+        </td>
+      </tr>
+      <tr>
+        <td>線３：</td>
+        <td>
+          <input type="radio" name="s2c0" value="0" <%= check[2][0] %>>実線
+          <input type="radio" name="s2c0" value="1" <%= check[2][1] %>>破線１
+          <input type="radio" name="s2c0" value="2" <%= check[2][2] %>>破線２
+        </td>
+        <td>
+          <input type="radio" id="circle" name="s2c1" value="0" <%= check[5][0] %>>丸
+          <input type="radio" id="triangle" name="s2c1" value="1" <%= check[5][1] %>>三角
+          <input type="radio" id="rect" name="s2c1" value="2" <%= check[5][2] %>>四角
+        </td>
+      </tr>
+    </table>
   </div>
   <div id="graph">
     <canvas id="graph1" class="graph"></canvas>
