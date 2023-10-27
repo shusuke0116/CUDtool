@@ -906,7 +906,7 @@ app.get("/question/8/:col", (req, res) => {
         res.render('show', {mes:"エラーです"});
       }
       //console.log(data);
-      res.render('layout_3b', {e:0,textdata:data,col:col,check:check,gb:0});
+      res.render('layout_3b', {e:0,textdata:data,col:col,check:check});
     })
   })
 });
@@ -916,6 +916,7 @@ app.post("/question/8/answer", (req, res) => {
   let check = [["","",""],["","",""],["","",""],["","",""],["","",""],["","",""]];
   let c = [req.body.s0c0,req.body.s1c0,req.body.s2c0,req.body.s0c1,req.body.s1c1,req.body.s2c1];
   let gb = 1;
+  //console.log(c);
   
   //チェックされた場所
   for(let i=0;i<6;i++){
@@ -927,20 +928,21 @@ app.post("/question/8/answer", (req, res) => {
     for(let j=i+1;j<3;j++){
       if(c[i] == c[j]){
         gb = 0;
+        break;
       }
-      break;
     }
   }
+  
   //評価（ポイントの図形）
   for(let i=3;i<6;i++){
     for(let j=i+1;j<6;j++){
       if(c[i] == c[j]){
         gb = 0;
+        break;
       }
-      break;
     }
   }
-
+  
   //カラーコード
   let s = "select pcode"
     + " from color" 
@@ -973,7 +975,84 @@ app.post("/question/8/answer", (req, res) => {
         res.render('show', {mes:"エラーです"});
       }
       //console.log(data);
-      res.render('layout_3b', {e:1,textdata:data,col:col,check:check,gb:gb});
+      res.render('layout_3b', {e:1,textdata:data,col:col,check:check,gb:gb,c:c});
+    })
+  })
+});
+
+app.get("/question/9/:col/:mark", (req, res) => {
+
+  let col = [[req.params.col.substr(0,6),""],[req.params.col.substr(6,6),""],[req.params.col.substr(12,6),""]];
+  let check = ["checked",""];
+  let mark = [req.params.mark.substr(0,1),req.params.mark.substr(1,1),req.params.mark.substr(2,1),req.params.mark.substr(3,1),req.params.mark.substr(4,1),req.params.mark.substr(5,1)];
+  //console.log(col);
+  //console.log(mark);
+  
+  // テキスト
+  let sql = "select id,item,que" 
+    + " from text"
+    + " where text.id = 9"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sql, (error, data) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(data);
+      res.render('layout_3c', {e:0,textdata:data,col:col,check:check,mark:mark});
+    })
+  })
+});
+
+app.post("/question/9/answer", (req, res) => {
+  let col = [[req.body.a0s0,""],[req.body.a0s1,""],[req.body.a0s2,""]];
+  let check = ["",""];
+  let mark = [req.body.m0,req.body.m1,req.body.m2,req.body.m3,req.body.m4,req.body.m5];
+  let gb;
+
+  //評価
+  if(req.body.c0 == "right"){
+    gb = 1;
+    check[1] = "checked";
+  }else{
+    gb = 0;
+    check[0] = "checked";
+  }
+
+  //カラーコード
+  let s = "select pcode"
+    + " from color" 
+    + " where ccode = '";
+
+  let sqls = [ s+req.body.a0s0+"';" , s+req.body.a0s1+"';" , s+req.body.a0s2+"';" ];
+  let i = 0;
+  for(let sql of sqls){
+    db.serialize( () => {
+      db.all(sql, (error, data) => {
+        if( error ) {
+          return res.render('show', {mes:"エラーです"});
+        }
+        col[i][1] = data[0].pcode;
+        i++;
+        //console.log(col);
+      })
+    })
+  }
+
+  // テキスト
+  let sql = "select *" 
+    + " from text"
+    + " where text.id = 9"
+    + ";";
+
+  db.serialize( () => {
+    db.all(sql, (error, data) => {
+      if( error ) {
+        res.render('show', {mes:"エラーです"});
+      }
+      //console.log(data);
+      res.render('layout_3c', {e:1,textdata:data,col:col,check:check,mark:mark,gb:gb});
     })
   })
 });

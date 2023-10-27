@@ -1,18 +1,8 @@
 //グラフの共通データ
 var datas = [[4.3, 3.0, 3.7, 3.1,2.0],[2.6, 4.2, 1.9, 2.3,2.8],[1.7, 2.0, 3.0, 4.2,3.7]];
-var options = {
-  responsive: false,
-  scales: { 
-    y: {
-      ticks: {
-        min:0,
-        stepSize: 1.0,
-      }
-    }
-  }
-};
 var labels = ['0', '1', '2', '3','4'];
 var label = ["線１","線２","線３"];
+
 var psize = 5;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,9 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var dash = new Array(3);
   var point = new Array(3);
   var d = new Array(3);
+  var p = new Array(3);
   for(let i=0;i<3;i++){
     col[i] = '#' + document.querySelector("input[name=a0s" + String(i) + "]").value;
-    d[i] = document.querySelector("input[name=s" + String(i) + "c0]:checked").value;
+    d[i] = document.querySelector("input[name=m" + String(i) + "]").value;
     if(d[i] == 2){
       dash[i] = [7,3,3,3];
     }
@@ -35,7 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
     else{
       dash[i] = [0,0];
     }
-    point[i] = document.querySelector("input[name=s" + String(i) + "c1]:checked").id;
+    p[i] = document.querySelector("input[name=m" + String(i+3) + "]").value;
+    if(p[i] == 2){
+      point[i] = "rect";
+    }
+    else if(p[i] == 1){
+      point[i] = "triangle";
+    }
+    else{
+      point[i] = "circle";
+    }
   }
   var data = {
     labels: labels,
@@ -65,41 +65,42 @@ document.addEventListener('DOMContentLoaded', function() {
       pointRadius: psize,
     }],
   }
+  var pos = document.querySelector("input[name=c0]:checked").value;
+  var rev = document.querySelector("input[name=c0]:checked").id;
+  var options = {
+    responsive: false,
+    plugins: {
+      legend:{
+        position: pos,
+        reverse: rev,
+        labels:{
+          padding: 30,
+        }
+      }
+    },
+    scales: { 
+      y: {
+        ticks: {
+          min:0,
+          stepSize: 1.0,
+        }
+      }
+    }
+  };
   var chart = new Chart(ctx, {
     type: "line",
     data: data,
     options: options
   });  
+  
 
   //ラジオボタン
-  for(let i=0;i<3;i++){
-    //線の種類
-    for(let element of document.querySelectorAll("input[name=s" + String(i) + "c0]")) {
-      element.addEventListener('change',function(){
-        if(this.value == 2){
-          dash[i] = [7,3,3,3];
-          chart.data.datasets[i].borderDash = dash[i];
-        }
-        else if(this.value == 1){
-          dash[i] = [3,3];
-          chart.data.datasets[i].borderDash = dash[i];
-        }
-        else{
-          dash[i] = [0,0];
-          chart.data.datasets[i].borderDash = dash[i];
-        }
-        chart.update();
-      });
-    }
-    
-    //点の種類
-    for(let element of document.querySelectorAll("input[name=s" + String(i) + "c1]")) {
-      element.addEventListener('change',function(){
-        point[i] = this.id;
-        chart.data.datasets[i].pointStyle = point[i];
-        chart.update();
-      });
-    }
+  for(let element of document.querySelectorAll("input[name=c0]")) {
+    element.addEventListener('change',function(){
+      chart.options.plugins.legend.position = this.value;
+      chart.options.plugins.legend.reverse = this.id;
+      chart.update();
+    });
   }
 
   //別色覚のグラフ

@@ -1,5 +1,5 @@
 //グラフの共通データ
-var datas = [[4.3, 3.0, 3.7, 3.1,2.3],[2.6, 4.2, 1.9, 2.3,3.3],[1.7, 2.0, 3.0, 4.2,5.0]];
+var datas = [[4.3, 3.0, 3.7, 3.1,2.0],[2.6, 4.2, 1.9, 2.3,2.8],[1.7, 2.0, 3.0, 4.2,3.7]];
 var options = {
   responsive: false,
   scales: { 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
   for(let i=0;i<=3;i++){
     actx = document.querySelector("#a"+String(i)).getContext("2d");
     for(let j=0;j<3;j++){
-      acol[j] = '#' + document.querySelector("input[name=a"+String(i)+"s"+String(j)+"]").value
+      acol[j] = '#' + document.querySelector("input[name=a"+String(i)+"s"+String(j)+"]").value;
     }
     adata = {
       labels: labels,
