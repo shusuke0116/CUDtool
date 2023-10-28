@@ -8,7 +8,7 @@ var options = {
         min:0,
         stepSize: 1.0,
       }
-    }
+    },
   }
 };
 var labels = ['0', '1', '2', '3','4'];
@@ -16,6 +16,8 @@ var label = ["線１","線２","線３"];
 
 document.addEventListener('DOMContentLoaded', function() {
 
+  //文字サイズ
+  Chart.defaults.font.size = 20;
   //メインのグラフ
   var ctx = document.querySelector("#graph1").getContext("2d");
   var color = new Array(3);

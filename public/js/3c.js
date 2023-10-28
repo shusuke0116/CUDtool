@@ -7,6 +7,8 @@ var psize = 5;
 
 document.addEventListener('DOMContentLoaded', function() {
 
+  //文字サイズ
+  Chart.defaults.font.size = 20;
   //メインのグラフ
   var ctx = document.querySelector("#graph1").getContext("2d");
   var col = new Array(3);
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
           min:0,
           stepSize: 1.0,
         }
-      }
+      },
     }
   };
   var chart = new Chart(ctx, {
@@ -107,43 +109,41 @@ document.addEventListener('DOMContentLoaded', function() {
   var actx;
   var acol = new Array(3);
   var adata;
-  for(let i=0;i<2;i++){
-    actx = document.querySelector("#a"+String(i)).getContext("2d");   
-    for(let j=0;j<3;j++){
-      acol[j] = '#' + document.querySelector("input[name=a"+String(i)+"s"+String(j)+"]").value;
-    }
-    adata = {
-      labels: labels,
-      datasets: [{
-        label: label[0],
-        data: datas[0],
-        borderColor:  acol[0] ,
-        backgroundColor: acol[0] ,
-        borderDash: dash[0],
-        pointStyle: point[0],
-        pointRadius: psize,
-      },{
-        label: label[1],
-        data: datas[1],
-        borderColor: acol[1] ,
-        backgroundColor: acol[1] ,
-        borderDash: dash[1],
-        pointStyle: point[1],
-        pointRadius: psize,
-      },{
-        label: label[2],
-        data: datas[2],
-        borderColor: acol[2] ,
-        backgroundColor: acol[2] ,
-        borderDash: dash[2],
-        pointStyle: point[2],
-        pointRadius: psize,
-      }],
-    }
-    var achart = new Chart(actx, {
-      type: "line",
-      data: adata,
-      options: options
-    });
+  actx = document.querySelector("#a1").getContext("2d");   
+  for(let j=0;j<3;j++){
+    acol[j] = '#' + document.querySelector("input[name=a1s"+String(j)+"]").value;
   }
+  adata = {
+    labels: labels,
+    datasets: [{
+      label: label[0],
+      data: datas[0],
+      borderColor:  acol[0] ,
+      backgroundColor: acol[0] ,
+      borderDash: dash[0],
+      pointStyle: point[0],
+      pointRadius: psize,
+    },{
+      label: label[1],
+      data: datas[1],
+      borderColor: acol[1] ,
+      backgroundColor: acol[1] ,
+      borderDash: dash[1],
+      pointStyle: point[1],
+      pointRadius: psize,
+    },{
+      label: label[2],
+      data: datas[2],
+      borderColor: acol[2] ,
+      backgroundColor: acol[2] ,
+      borderDash: dash[2],
+      pointStyle: point[2],
+      pointRadius: psize,
+    }],
+  }
+  var achart = new Chart(actx, {
+    type: "line",
+    data: adata,
+    options: options
+  });
 });

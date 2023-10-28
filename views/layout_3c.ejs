@@ -15,12 +15,14 @@
     font-size: 1.75rem;
   }
   canvas.graph{
-    width:500px;
+    width:35rem;
+    border: 2px solid;
+    border-color:#c8c8c8;
   }
   #ano{
     border: 2px solid;
     border-color:#c8c8c8;
-    width: <%= 2*16 %>rem;
+    width: 35rem;
   }
   #ano,#sim{
     font-size: 2rem
@@ -62,7 +64,6 @@
     <div id="ano">
       ＜別色覚視点＞<br>
       <div id="sim">
-        通常：<canvas id="a0" class="graph"></canvas>
         P型：<canvas id="a1" class="graph"></canvas>
         <input type="hidden" name="a1s0" value="<%= col[0][1] %>">
         <input type="hidden" name="a1s1" value="<%= col[1][1] %>">

@@ -19,12 +19,14 @@
     font-size: 1.75rem;
   }
   canvas.graph{
-    width:500px;
+    width:35rem;
+    border: 2px solid;
+    border-color:#c8c8c8;
   }
   #ano{
     border: 2px solid;
     border-color:#c8c8c8;
-    width: <%= 2*16 %>rem;
+    width: 35rem;
   }
   #ano,#sim{
     font-size: 2rem
@@ -32,6 +34,36 @@
   }
   .button{
     font-size: 1.5rem;
+  }
+  #sim{
+    margin: auto;
+    flex-wrap: wrap;
+    display: flex;
+  }
+  .tab {
+    width: calc(100%/4);
+    height: 50px;
+    background-color: darkgrey;
+    line-height: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+    display: block;
+    float: left;
+    order: -1;
+  }
+  .content {
+    display: none;
+    width: 100%;
+  }
+  input[name="tab_name"] {
+    display: none;
+  }
+  input:checked + .tab {
+    background-color: cadetblue;
+    color: aliceblue;
+  }
+  input:checked + .tab + .content {
+    display: block;
   }
 
   </style>
@@ -42,7 +74,9 @@
   <hr>
   <form action="/question/7/answer" method="post">
   <div id="que">
-    <p><%= textdata[0].que %></p>
+    <p><%= textdata[0].que %><br>
+    ※横軸の値が０（グラフ内の一番左）において、上から順番に線１、線２、線３とします。
+    </p>
   </div>
   <div id="cho">
     <p><span class="nor">線１：</span>
@@ -95,10 +129,26 @@
     <div id="ano">
       ＜別色覚視点＞<br>
       <div id="sim">
-        通常：<canvas id="a0" class="graph"></canvas>
-        P型：<canvas id="a1" class="graph"></canvas>
-        D型：<canvas id="a2" class="graph"></canvas>
-        S型：<canvas id="a3" class="graph"></canvas>
+        <input type="radio" name="tab_name" id="tab0" checked>
+        <label class="tab" for="tab0">通常</label>
+        <div class="content">
+          通常：<canvas id="a0" class="graph"></canvas>
+        </div>
+        <input type="radio" name="tab_name" id="tab1">
+        <label class="tab" for="tab1">P型</label>
+        <div class="content">
+          P型：<canvas id="a1" class="graph"></canvas>
+        </div>
+        <input type="radio" name="tab_name" id="tab2">
+        <label class="tab" for="tab2">D型</label>
+        <div class="content">
+          D型：<canvas id="a2" class="graph"></canvas>
+        </div>
+        <input type="radio" name="tab_name" id="tab3">
+        <label class="tab" for="tab3">S型</label>
+        <div class="content">
+          S型：<canvas id="a3" class="graph"></canvas>
+        </div>
       </div>
     </div>
     <% for(let i=1;i<=3;i++){
