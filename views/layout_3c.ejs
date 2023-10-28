@@ -34,11 +34,11 @@
 <body>
   <p>3部：グラフ[ 1.配色 → <a href="<%= '/question/8/' +col[0][0]+col[1][0]+col[2][0]  %>">2.色以外での区別</a> → 3.項目名の書き方 ]</p>
   <hr>
-  <h2>2. 色以外での区別</h2>
+  <h2><%= textdata[0].item %></h2>
   <hr>
   <form action="/question/9/answer" method="post">
   <div id="que">
-    <p>que</p>
+    <p><%= textdata[0].que %></p>
   </div>
   <div id="cho">
     <input type="radio" id="" name="c0" value="top" <%= check[0] %>>別枠にまとめる
