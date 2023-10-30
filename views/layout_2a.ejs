@@ -93,6 +93,9 @@
     <input type="hidden" name="backid" value="<%= backid[0] %>">
     <p><input type="submit" value="評価" class="button"></p>
   </div>
+  <input type="hidden" name="count" value="<%= count %>">
+  <input type="hidden" name="prev1" value="<%= prev1 %>">
+  <input type="hidden" name="prev2" value="<%= prev2 %>">
   </form>
 
   <% if(e == 1){ %>
@@ -125,13 +128,23 @@
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>
-        <p>別の選択肢を選んでください</p>
+        <p>別の選択肢を選んでください。</p>
       <% }else{ %> 
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
         <hr>
+      <% if(count >= 3) { %> 
+        <p>＜背景色を変更する＞<br>
+        <% for (let row of choices){  %>
+          <a href="<%= '/question/4/' + row.ccode + '/0' %>"><%= row.name %></a>
+        <% } %>
+        </p>
+        <hr>
         <p><a href="<%= '/question/5/31FC31' %>">次の項目へ</a></p>
-      <% } %>
+      <% } else { %>
+        <p>別の選択肢も試しましょう。</p>
+      <% } 
+        } %>
     </div>
   <% } %>
 

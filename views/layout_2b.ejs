@@ -57,7 +57,7 @@
   }
 </style>
 <body>
-  <p>2部：色の組み合わせ[ <a href="/question/4/FF0000">1.色相</a> → 2.明度 → 3.彩度 ]</p>
+  <p>2部：色の組み合わせ[ <a href="/question/4/FF0000/3">1.色相</a> → 2.明度 → 3.彩度 ]</p>
   <hr>
   <h2> <%= textdata[0].item %></h2>
   <hr>
@@ -124,10 +124,15 @@
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>
-        <p>別の選択肢を選んでください</p>
+        <p>別の選択肢を選んでください。</p>
       <% }else{ %> 
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
+        <hr>
+        <p>＜背景色を変更する＞<br>
+        <% for (let row of choices){  %>
+          <a href="<%= '/question/5/' + row.ccode %>"><%= row.name %></a>
+        <% } %>
         <hr>
         <p><a href="<%= '/question/6/FFBFC0' %>">次の項目へ</a></p>
       <% } %>

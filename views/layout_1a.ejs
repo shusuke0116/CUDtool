@@ -70,6 +70,10 @@
     <input type="hidden" name="id" value="<%= textdata[0].id %>">
     <p><input type="submit" value="評価" class="button"></p>
   </div>
+
+  <input type="hidden" name="count" value="<%= count %>">
+  <input type="hidden" name="prev1" value="<%= prev1 %>">
+  <input type="hidden" name="prev2" value="<%= prev2 %>">
   </form>
 
   <% if(e == 1){ %>
@@ -89,13 +93,17 @@
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>
-        <p>別の選択肢を選んでください</p>
+        <p>別の選択肢を選んでください。</p>
       <% }else{ %> 
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
         <hr>
-        <p><a href="<%= '/question/' + (parseInt(textdata[0].id)+1) + '/' + col[0] %>">次の項目へ</a></p>
-      <% } %>
+        <% if(count >= 3) { %> 
+          <p><a href="<%= '/question/2/' + col[0] %>">次の項目へ</a></p>
+        <% } else { %>
+          <p>別の選択肢も試しましょう。</p>
+        <% } 
+        } %>
     </div>
   <% } %>
 

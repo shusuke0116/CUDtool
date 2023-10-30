@@ -125,10 +125,15 @@
       <% if(gb == 0) { %> 
         <p><%= textdata[0].bad %></p>
         <p>ポイント：<%= textdata[0].adv %></p>
-        <p>別の選択肢を選んでください</p>
+        <p>別の選択肢を選んでください。</p>
       <% }else{ %> 
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
+        <hr>
+        <p>＜背景色を変更する＞<br>
+        <% for (let row of choices){  %>
+          <a href="<%= '/question/6/' + row.ccode %>"><%= row.name %></a>
+        <% } %>
         <hr>
         <p><a href="/">top page</a>　　<a href="/question/7">3部：グラフ</a></p>
       <% } %>

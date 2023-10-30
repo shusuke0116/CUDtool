@@ -13,11 +13,15 @@ app.get("/", (req, res) => {
   res.render('top'); 
 });
 
-app.get("/question/1", (req, res) => {
+app.get("/question/1/:count", (req, res) => {
 
   let textdata;
   let col = new Array(3);
-
+  //回数を数える
+  var prev1 = 0;
+  var prev2 = 0;
+  var count = Number(req.params.count);
+  //console.log(count);
   // テキスト
   let sql = "select id,item,que" 
     + " from text"
@@ -48,7 +52,7 @@ app.get("/question/1", (req, res) => {
       }
       //console.log(choices); 
       col[0] = choices[0].ccode;
-      res.render('layout_1a', {e:0,textdata:textdata,choices:choices,col:col});
+      res.render('layout_1a', {e:0,textdata:textdata,choices:choices,col:col,count:count,prev1:prev1,prev2:prev2});
     })
   })
 });
@@ -58,6 +62,9 @@ app.post("/question/1/answer", (req, res) => {
   let textdata;
   let gb;
   let col = new Array(5);
+  var count = Number(req.body.count);
+  var prev1 = Number(req.body.prev1);
+  var prev2 = Number(req.body.prev2);
 
   // 選択された色のカラーコード
   let sql = "select name,ccode,pcode,dcode,scode"
@@ -91,6 +98,15 @@ app.post("/question/1/answer", (req, res) => {
         res.render('show', {mes:"エラーです"});
       }
       gb = eva[0].gb;
+      if(gb == 1){
+        if(prev1 != req.body.choice && prev2 != req.body.choice){
+          count += 1;
+          prev2 = prev1;
+          prev1 = req.body.choice;
+        }
+      }
+      console.log("prev1:"+prev1);
+      console.log("count:"+count);
     })
   })
 
@@ -122,7 +138,7 @@ app.post("/question/1/answer", (req, res) => {
       if( error ) {
         res.render('show', {mes:"エラーです"});
       }
-      res.render('layout_1a', {e:1,textdata:textdata,choices:choices,col:col,gb:gb});
+      res.render('layout_1a', {e:1,textdata:textdata,choices:choices,col:col,gb:gb,count:count,prev1:prev1,prev2:prev2});
     })
   })
 });
@@ -303,12 +319,16 @@ app.post("/question/3/answer", (req, res) => {
   })
 });
 
-app.get("/question/4/:bcol", (req, res) => {
+app.get("/question/4/:bcol/:count", (req, res) => {
 
   let textdata;
   let col = new Array(3);
   let bcol =  [req.params.bcol,""];
   let backid = new Array(2);;
+  //回数を数える
+  var prev1 = 0;
+  var prev2 = 0;
+  var count = Number(req.params.count);
 
   // テキスト
   let sql = "select id,item,que" 
@@ -327,7 +347,6 @@ app.get("/question/4/:bcol", (req, res) => {
   })
 
   //背景色のid
-
   let sqla = "select id,name" 
     + " from color"
     + " where ccode = '" + bcol[0] + "'"
@@ -357,7 +376,7 @@ app.get("/question/4/:bcol", (req, res) => {
       }
       //console.log(choices); 
       col[0] = choices[0].ccode;
-      res.render('layout_2a', {e:0,textdata:textdata,choices:choices,col:col,bcol:bcol,backid:backid});
+      res.render('layout_2a', {e:0,textdata:textdata,choices:choices,col:col,bcol:bcol,backid:backid,count:count,prev1:prev1,prev2:prev2});
     })
   })
 });
@@ -369,7 +388,10 @@ app.post("/question/4/answer", (req, res) => {
   let backid = req.body.backid;
   let col = new Array(5);
   let bcol = new Array(4);
-
+  var count = Number(req.body.count);
+  var prev1 = Number(req.body.prev1);
+  var prev2 = Number(req.body.prev2);
+  
   // 選択された色のカラーコード
   let sql = "select name,ccode,pcode,dcode,scode"
     + " from color" 
@@ -420,6 +442,15 @@ app.post("/question/4/answer", (req, res) => {
         res.render('show', {mes:"エラーです"});
       }
       gb = eva[0].gb;
+      if(gb == 1){
+        if(prev1 != req.body.choice && prev2 != req.body.choice){
+          count += 1;
+          prev2 = prev1;
+          prev1 = req.body.choice;
+        }
+      }
+      //console.log("prev1:"+prev1);
+      //console.log("count:"+count);
     })
   })
 
@@ -452,7 +483,7 @@ app.post("/question/4/answer", (req, res) => {
       if( error ) {
         res.render('show', {mes:"エラーです"});
       }
-      res.render('layout_2a', {e:1,textdata:textdata,choices:choices,col:col,bcol:bcol,gb:gb,backid:backid});
+      res.render('layout_2a', {e:1,textdata:textdata,choices:choices,col:col,bcol:bcol,gb:gb,backid:backid,count:count,prev1:prev1,prev2:prev2});
     })
   })
 });

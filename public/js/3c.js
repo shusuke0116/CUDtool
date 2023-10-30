@@ -69,6 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   var pos = document.querySelector("input[name=c0]:checked").value;
   var rev = document.querySelector("input[name=c0]:checked").id;
+  if(rev == "true") pad = 30;
+  else pad = 5;
+  
   var options = {
     responsive: false,
     plugins: {
@@ -76,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         position: pos,
         reverse: rev,
         labels:{
-          padding: 30,
+          padding: pad,
         }
       }
     },
@@ -101,6 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
     element.addEventListener('change',function(){
       chart.options.plugins.legend.position = this.value;
       chart.options.plugins.legend.reverse = this.id;
+      if(this.id == "true") pad = 30;
+      else pad = 5;
+      chart.options.plugins.legend.labels.padding = pad;
       chart.update();
     });
   }
