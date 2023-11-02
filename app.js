@@ -105,8 +105,8 @@ app.post("/question/1/answer", (req, res) => {
           prev1 = req.body.choice;
         }
       }
-      console.log("prev1:"+prev1);
-      console.log("count:"+count);
+      //console.log("prev1:"+prev1);
+      //console.log("count:"+count);
     })
   })
 
