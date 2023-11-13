@@ -2,6 +2,7 @@
 var datas = [[4.3, 3.0, 3.7, 3.1,2.0],[2.6, 4.2, 1.9, 2.3,2.8],[1.7, 2.0, 3.0, 4.2,3.7]];
 var options = {
   responsive: false,
+  animation: false,
   scales: { 
     y: {
       ticks: {

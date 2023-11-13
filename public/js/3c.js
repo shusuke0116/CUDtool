@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   var options = {
     responsive: false,
+    animation: false,
     plugins: {
       legend:{
         position: pos,
