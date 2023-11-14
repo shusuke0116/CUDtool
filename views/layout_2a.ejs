@@ -64,6 +64,12 @@
   <hr>
   <h2><%= textdata[0].item %></h2>
   <hr>
+  <p>＜背景色を変更する＞<br>
+  <% for (let row of choices){  %>
+    <a href="<%= '/question/4/' + row.ccode + '/0' %>"><%= row.name %></a>
+  <% } %>
+  </p>
+  <hr>
 
   <form action="/question/4/answer" method="post">
   <div id="que">
@@ -136,12 +142,6 @@
         <p>ポイント：<%= textdata[0].adv %></p>
         <hr>
       <% if(count >= 3) { %> 
-        <p>＜背景色を変更する＞<br>
-        <% for (let row of choices){  %>
-          <a href="<%= '/question/4/' + row.ccode + '/0' %>"><%= row.name %></a>
-        <% } %>
-        </p>
-        <hr>
         <p><a href="<%= '/question/5/31FC31' %>">次の項目へ</a></p>
       <% } else { %>
         <p>別の選択肢も試しましょう。適する色を３つ以上試すことで次の項目に移ることができます。</p>

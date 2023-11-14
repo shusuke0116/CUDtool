@@ -64,7 +64,12 @@
   <hr>
   <h2><%= textdata[0].item %></h2>
   <hr>
-
+  <p>＜背景色を変更する＞<br>
+  <% for (let row of choices){  %>
+    <a href="<%= '/question/6/' + row.ccode %>"><%= row.name %></a>
+  <% } %>
+  <hr>
+    
   <form action="/question/6/answer" method="post">
   <div id="que">
     <p><%= textdata[0].que %></p>
@@ -131,11 +136,6 @@
       <% }else{ %> 
         <p><%= textdata[0].good %></p>  
         <p>ポイント：<%= textdata[0].adv %></p>
-        <hr>
-        <p>＜背景色を変更する＞<br>
-        <% for (let row of choices){  %>
-          <a href="<%= '/question/6/' + row.ccode %>"><%= row.name %></a>
-        <% } %>
         <hr>
         <p><a href="/question/7">3部：グラフ</a></p>
       <% } %>
